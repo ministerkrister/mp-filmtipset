@@ -10,6 +10,14 @@ using MediaPortal.GUI.Library;
 
 namespace Filmtipset.API
 {
+    internal class FanartCache
+    {
+        public string Imdb { get; set; }
+        public string FanartUrl { get; set; }
+        public string FanartPosterUrl { get; set; }
+        public DateTime TimeStamp { get; set; }
+    }
+
     internal sealed class FanartAPI
     {
         #region constants
@@ -20,13 +28,15 @@ namespace Filmtipset.API
         #endregion
 
         #region Private parts
-        private IDictionary<string, FanartResponse> cache;
+        private List<FanartCache> cache;
+        private TimeSpan maxAge;
         #endregion
 
         # region Singleton
         private FanartAPI()
         {
-            cache = new Dictionary<string, FanartResponse>();
+            cache = new List<FanartCache>();
+            maxAge = new TimeSpan(12, 0, 0);
         }
 
         private static volatile FanartAPI instance = null;
@@ -49,64 +59,37 @@ namespace Filmtipset.API
         }
         #endregion
 
-        #region public
+        #region private
         private FanartResponse GetFanart(string imdb)
         {
-            lock (lockObj)
+            FanartResponse fanart = null;
+            if (string.IsNullOrEmpty(imdb))
+                return null;
+            imdb = "tt" + imdb.Replace("tt", string.Empty);
+            WebClient webClient = new WebClient();
+            webClient.Headers[HttpRequestHeader.Accept] = "application/json";
+            if (FilmtipsetSettings.UseLocalDebugProxy) webClient.Proxy = new WebProxy(FilmtipsetSettings.LocalDebugProxyIp, FilmtipsetSettings.LocalDebugProxyPort);
+
+            NameValueCollection parameters = new NameValueCollection();
+            parameters.Add("api_key", fanartTvKey);
+            if (!string.IsNullOrEmpty(FilmtipsetSettings.PersonalFanartAPIKey.Trim()))
+                parameters.Add("client_key", FilmtipsetSettings.PersonalFanartAPIKey.Trim());
+            webClient.QueryString = parameters;
+            try
             {
-                if (string.IsNullOrEmpty(imdb))
-                    return null;
-                imdb = "tt" + imdb.Replace("tt", string.Empty);
-                if (!cache.ContainsKey(imdb))
-                {
-                    WebClient webClient = new WebClient();
-                    webClient.Headers[HttpRequestHeader.Accept] = "application/json";
-                    if (FilmtipsetSettings.UseLocalDebugProxy) webClient.Proxy = new WebProxy(FilmtipsetSettings.LocalDebugProxyIp, FilmtipsetSettings.LocalDebugProxyPort);
-
-                    NameValueCollection parameters = new NameValueCollection();
-                    parameters.Add("api_key", fanartTvKey);
-                    if (!string.IsNullOrEmpty(FilmtipsetSettings.PersonalFanartAPIKey.Trim()))
-                        parameters.Add("client_key", FilmtipsetSettings.PersonalFanartAPIKey.Trim());
-                    webClient.QueryString = parameters;
-                    try
-                    {
-                        string json = webClient.DownloadString(new Uri((FilmtipsetSettings.UseFanartTvApiProxy ? proxyApiUrl : apiUrl) + imdb));
-                        Log.Debug(string.Format("[Filmtipset] Adding to cache: {0} found", imdb));
-                        cache.Add(imdb, json.FromJSON<FanartResponse>());
-                    }
-                    catch (Exception e)
-                    {
-                        cache.Add(imdb, null);
-                        if (e.GetType().Name == "WebException")
-                        {
-                            WebException we = (WebException)e;
-                            HttpWebResponse response = (System.Net.HttpWebResponse)we.Response;
-                            if (response.StatusCode == HttpStatusCode.NotFound)
-                            {
-                                Log.Debug("[Filmtipset] No fanart found for {0}", imdb);
-                                Log.Debug(string.Format("[Filmtipset] Adding to cache: {0} notfound", imdb));
-                            }
-                            else
-                            {
-                                Log.Error(string.Format("[Filmtipset] Error getting fanart for {0}, {1}", imdb, we.Message));
-                                Log.Debug(string.Format("[Filmtipset] Adding null to cache: {0} error", imdb));
-                            }
-                        }
-                        else
-                        {
-                            Log.Error(string.Format("[Filmtipset] Error getting fanart for {0}, {1}", imdb, e.Message));
-                            Log.Debug(string.Format("[Filmtipset] Adding null to cache: {0} error", imdb));
-                        }
-
-                    }
-                }
-                return cache.ContainsKey(imdb) ? cache[imdb] : null;
+                string json = webClient.DownloadString(new Uri((FilmtipsetSettings.UseFanartTvApiProxy ? proxyApiUrl : apiUrl) + imdb));
+                Log.Debug(string.Format("[Filmtipset] Adding to cache: {0} found", imdb));
+                fanart = json.FromJSON<FanartResponse>();
             }
+            catch (Exception e)
+            {
+                    Log.Error(string.Format("[Filmtipset] Error getting fanart for {0}, {1}", imdb, e.Message));
+            }
+            return fanart;
         }
     
-        public string GetFanartBackgroundUrl(string imdb, string language)
+        private string GetFanartBackgroundUrl(FanartResponse fanart, string language)
         {
-            FanartResponse fanart = GetFanart(imdb);
             if (fanart != null && fanart.MovieBackgrounds != null)
             {
                 List<Fanart> backgrounds = fanart.MovieBackgrounds;
@@ -122,9 +105,8 @@ namespace Filmtipset.API
             return string.Empty;
         }
 
-        public string GetFanartPosterUrl(string imdb, string language)
+        private string GetFanartPosterUrl(FanartResponse fanart, string language)
         {
-            FanartResponse fanart = GetFanart(imdb);
             if (fanart != null && fanart.MoviePosters != null)
             {
                 List<Fanart> posters = fanart.MoviePosters;
@@ -141,5 +123,43 @@ namespace Filmtipset.API
         }
 
         #endregion
+
+        #region public
+        
+        public void GetFanartUrls(string imdb, string language, out string fanartUrl, out string posterUrl)
+        {
+            FanartResponse fanart = GetFanart(imdb);
+            fanartUrl = GetFanartBackgroundUrl(fanart, language);
+            posterUrl = GetFanartPosterUrl(fanart, language);
+        }
+
+        public void GetFanartFromCache(string imdb, out bool notInCache, out string fanartUrl, out string posterUrl)
+        {
+            lock(lockObj)
+            {
+                cache.RemoveAll(c => (DateTime.Now - c.TimeStamp) > maxAge);
+                FanartCache fc = cache.FirstOrDefault(c => c.Imdb == imdb);
+                notInCache = fc == null;
+                fanartUrl = string.Empty;
+                posterUrl = string.Empty;
+                if (!notInCache)
+                {
+                    fanartUrl = fc.FanartUrl;
+                    posterUrl = fc.FanartPosterUrl;
+                }
+            }
+        }
+
+        public void AddToCache(string imdb, string fanartUrl, string posterUrl)
+        {
+            lock(lockObj)
+            {
+                FanartCache fc = new FanartCache() { Imdb = imdb, FanartPosterUrl = posterUrl, FanartUrl = fanartUrl, TimeStamp = DateTime.Now };
+                cache.RemoveAll(c => c.Imdb == imdb);
+                cache.Add(fc);
+            }
+        }
+        #endregion
+
     }
 }
