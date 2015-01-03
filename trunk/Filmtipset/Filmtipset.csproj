@@ -129,11 +129,56 @@
     <Content Include="Resources\Skin\Titan\Filmtipset.Common.Fanart.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\Skin\Titan\Filmtipset.Common.Movies.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Skin\Titan\Filmtipset.Recommendations.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Resources\Skin\Titan\Filmtipset.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Skin\Titan\Media\FilmtipsetBadgeGrade0.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Skin\Titan\Media\FilmtipsetBadgeGrade0Grey.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Skin\Titan\Media\FilmtipsetBadgeGrade1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Skin\Titan\Media\FilmtipsetBadgeGrade1Grey.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Skin\Titan\Media\FilmtipsetBadgeGrade2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Skin\Titan\Media\FilmtipsetBadgeGrade2Grey.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Skin\Titan\Media\FilmtipsetBadgeGrade3.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Skin\Titan\Media\FilmtipsetBadgeGrade3Grey.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Skin\Titan\Media\FilmtipsetBadgeGrade4.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Skin\Titan\Media\FilmtipsetBadgeGrade4Grey.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Skin\Titan\Media\FilmtipsetBadgeGrade5.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Skin\Titan\Media\FilmtipsetBadgeGrade5Grey.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Skin\Titan\Media\FilmtipsetNotWatched.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Skin\Titan\Media\FilmtipsetWatched.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Skin\Titan\Media\panel_filmtipset.png">

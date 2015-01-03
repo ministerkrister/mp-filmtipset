@@ -201,6 +201,7 @@ namespace Filmtipset.GUI
 
         protected void ClearProperties()
         {
+            GUICommon.SetProperty("#Filmtipset.CurrentGenre.Label", " ");
             GUICommon.ClearMovieProperties();
         }
 
@@ -229,7 +230,9 @@ namespace Filmtipset.GUI
                 if (g != CurrentGenre)
                 {
                     CurrentGenre = g;
-                    GUIControl.SetControlLabel(GetID, genreButton.GetID, GenreItemName(CurrentGenre));
+                    GUIControl.SetControlLabel(GetID, genreButton.GetID, dlg.SelectedLabelText);
+                    GUICommon.SetProperty("#Filmtipset.CurrentGenre.Label", dlg.SelectedLabelText);
+
                     CurrentUser.RecommendationGenre = (int)CurrentGenre;
                     ReloadMovies();
                 }
@@ -302,7 +305,7 @@ namespace Filmtipset.GUI
 
         protected void LoadMovies()
         {
-            GUIUtils.SetProperty("#Filmtipset.Items", string.Empty);
+            GUICommon.SetProperty("#Filmtipset.CurrentGenre.Label", GenreItemName(CurrentGenre));
 
             Gui2UtilConnector.Instance.ExecuteInBackgroundAndCallback(() =>
             {
