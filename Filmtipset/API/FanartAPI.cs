@@ -29,14 +29,14 @@ namespace Filmtipset.API
 
         #region Private parts
         private List<FanartCache> cache;
-        private TimeSpan maxAge;
+        private TimeSpan cacheTimeout;
         #endregion
 
         # region Singleton
         private FanartAPI()
         {
             cache = new List<FanartCache>();
-            maxAge = new TimeSpan(12, 0, 0);
+            cacheTimeout = new TimeSpan(FilmtipsetSettings.FanartCacheTimeout, 0, 0);
         }
 
         private static volatile FanartAPI instance = null;
@@ -138,7 +138,7 @@ namespace Filmtipset.API
         {
             lock(lockObj)
             {
-                cache.RemoveAll(c => (DateTime.Now - c.TimeStamp) > maxAge);
+                cache.RemoveAll(c => (DateTime.Now - c.TimeStamp) > cacheTimeout);
                 FanartCache fc = cache.FirstOrDefault(c => c.Imdb == imdb);
                 notInCache = fc == null;
                 fanartUrl = string.Empty;
