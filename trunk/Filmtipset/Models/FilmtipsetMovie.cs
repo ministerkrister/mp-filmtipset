@@ -211,19 +211,6 @@ namespace Filmtipset.Models
         }
         string _poster = string.Empty;
 
-        public string FanartPoster
-        {
-            get
-            {
-                return _fanartPoster;
-            }
-            set
-            {
-                _fanartPoster = value;
-            }
-        }
-        string _fanartPoster = string.Empty;
-
         public string Fanart
         {
             get
@@ -262,27 +249,6 @@ namespace Filmtipset.Models
             }
         }
         string _PosterImageFilename = string.Empty;
-
-        public string FanartPosterImageFilename
-        {
-            get
-            {
-                string filename = string.Empty;
-                if (!string.IsNullOrEmpty(Imdb)) //Always jpg
-                {
-                    string folder = MediaPortal.Configuration.Config.GetSubFolder(MediaPortal.Configuration.Config.Dir.Thumbs, @"Filmtipset\FanartPosters");
-                    //string fanartPosterUrl = FanartPoster;
-                    string imdbid = "tt" + Imdb;
-                    filename = System.IO.Path.Combine(folder, imdbid + ".jpg");
-                }
-                return filename;
-            }
-            set
-            {
-                _FanartPosterImageFilename = value;
-            }
-        }
-        string _FanartPosterImageFilename = string.Empty;
 
         public string FanartImageFilename
         {
