@@ -1,0 +1,160 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B53FAA2F-D9FC-41C4-8F4D-109E9C4C4440}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Filmtipset</RootNamespace>
+    <AssemblyName>Filmtipset</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Common.Utils">
+      <HintPath>..\Externals\Common.Utils.dll</HintPath>
+    </Reference>
+    <Reference Include="Core">
+      <HintPath>..\Externals\Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Dialogs">
+      <HintPath>..\Externals\Dialogs.dll</HintPath>
+    </Reference>
+    <Reference Include="Gentle.Common">
+      <HintPath>..\Externals\Gentle.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Gentle.Framework">
+      <HintPath>..\Externals\Gentle.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="HtmlAgilityPack">
+      <HintPath>..\Externals\HtmlAgilityPack.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Trailers">
+      <HintPath>..\Externals\Trailers.dll</HintPath>
+    </Reference>
+    <Reference Include="TvBusinessLayer">
+      <HintPath>..\Externals\TvBusinessLayer.dll</HintPath>
+    </Reference>
+    <Reference Include="TVDatabase">
+      <HintPath>..\Externals\TVDatabase.dll</HintPath>
+    </Reference>
+    <Reference Include="TvWishListMP">
+      <HintPath>..\Externals\TvWishListMP.dll</HintPath>
+    </Reference>
+    <Reference Include="Utils">
+      <HintPath>..\Externals\Utils.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="API\FanartAPI.cs" />
+    <Compile Include="API\FilmtipsetAPI.cs" />
+    <Compile Include="API\FilmtipsetEnums.cs" />
+    <Compile Include="API\FilmtipsetListScraper.cs" />
+    <Compile Include="Configuration\Configuration.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Configuration\Configuration.Designer.cs">
+      <DependentUpon>Configuration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Cornerstone.MP\AsyncImageResource.cs" />
+    <Compile Include="Cornerstone.MP\ImageSwapper.cs" />
+    <Compile Include="Extensions\JSONExtensions.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="FilmtipsetPlugin.cs" />
+    <Compile Include="FilmtipsetSettings.cs" />
+    <Compile Include="GUI\Gui2UtilConnector.cs" />
+    <Compile Include="GUI\GUICommon.cs" />
+    <Compile Include="GUI\GUIExtensions.cs" />
+    <Compile Include="GUI\GUIImageHandler.cs" />
+    <Compile Include="GUI\GUIRecomendations.cs" />
+    <Compile Include="GUI\GUIUtils.cs" />
+    <Compile Include="Models\FanartResponse.cs" />
+    <Compile Include="Models\FilmtipsetData.cs" />
+    <Compile Include="Models\FilmtipsetLoadParam.cs" />
+    <Compile Include="Models\FilmtipsetMovie.cs" />
+    <Compile Include="Models\FilmtipsetMovieIdentifier.cs" />
+    <Compile Include="Models\FilmtipsetRequest.cs" />
+    <Compile Include="Models\FilmtipsetResponse.cs" />
+    <Compile Include="Models\FilmtipsetUser.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="FilmtipsetTranslation.cs" />
+    <Compile Include="Util\Utils.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\AssemblyInfo.template" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Configuration\Configuration.resx">
+      <DependentUpon>Configuration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Images\icon_faded.png" />
+    <EmbeddedResource Include="Resources\Images\icon_normal.png" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Resources\Skin\Titan\Filmtipset.Common.Background.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Skin\Titan\Filmtipset.Common.Fanart.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Skin\Titan\Filmtipset.Recommendations.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Resources\Skin\Titan\Filmtipset.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Skin\Titan\Media\panel_filmtipset.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>cd "$(ProjectDir)"
+SubWCRev . "Properties\AssemblyInfo.template" "Properties\AssemblyInfo.cs"</PreBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PostBuildEvent>copy /Y $(ProjectDir)$(OutDir)Filmtipset.* "C:\Program Files (x86)\Team MediaPortal\MediaPortal\plugins\Windows\"
+copy /Y $(ProjectDir)$(OutDir)Resources\Skin\Titan\*.xml "C:\ProgramData\Team MediaPortal\MediaPortal\skin\Titan"
+copy /Y $(ProjectDir)$(OutDir)Resources\Skin\Titan\Media\*.png "C:\ProgramData\Team MediaPortal\MediaPortal\skin\Titan\Media"</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
