@@ -307,27 +307,18 @@ namespace Filmtipset.GUI
                             // stop download if we have exited window
                             lock (lockObj)
                                 if (_stopDownload) break;
-                            string localFanartPoster = item.FanartPosterImageFilename;
-                            if (!string.IsNullOrEmpty(localFanartPoster) && GUIImageHandler.DoLocalFileExist(localFanartPoster))
-                            {
-                                // notify that image has been "downloaded"
-                                havePoster = true;
-                                item.NotifyPropertyChanged("FanartPosterImageFilename");
-                            }
-                            else
-                            {
-                                item.FanartPoster = FanartAPI.Instance.GetFanartPosterUrl(item.Imdb, GUI.Translation.CurrentLanguage);
-                                localFanartPoster = item.FanartPosterImageFilename;
-                                string remoteFanartPoster = item.FanartPoster;
+                            string localPoster = item.PosterImageFilename;
+                            string remotePoster = FanartAPI.Instance.GetFanartPosterUrl(item.Imdb, GUI.Translation.CurrentLanguage);
+                            localPoster = item.PosterImageFilename;
+                           
 
-                                if (!string.IsNullOrEmpty(remoteFanartPoster) && !string.IsNullOrEmpty(localFanartPoster))
+                            if (!string.IsNullOrEmpty(remotePoster) && !string.IsNullOrEmpty(localPoster))
+                            {
+                                if (GUIImageHandler.DownloadImage(remotePoster, localPoster))
                                 {
-                                    if (GUIImageHandler.DownloadImage(remoteFanartPoster, localFanartPoster))
-                                    {
-                                        // notify that image has been downloaded
-                                        havePoster = true;
-                                        item.NotifyPropertyChanged("FanartPosterImageFilename");
-                                    }
+                                    // notify that image has been downloaded
+                                    havePoster = true;
+                                    item.NotifyPropertyChanged("PosterImageFilename");
                                 }
                             }
                         }
@@ -340,12 +331,12 @@ namespace Filmtipset.GUI
                             lock (lockObj)
                                 if (_stopDownload) break;
 
-                            string remoteThumb = item.Poster;
-                            string localThumb = item.PosterImageFilename;
+                            string remotePoster = item.Poster;
+                            string localPoster = item.PosterImageFilename;
 
-                            if (!string.IsNullOrEmpty(remoteThumb) && !string.IsNullOrEmpty(localThumb))
+                            if (!string.IsNullOrEmpty(remotePoster) && !string.IsNullOrEmpty(localPoster))
                             {
-                                if (GUIImageHandler.DownloadImage(remoteThumb, localThumb))
+                                if (GUIImageHandler.DownloadImage(remotePoster, localPoster))
                                 {
                                     // notify that image has been downloaded
                                     item.NotifyPropertyChanged("PosterImageFilename");
@@ -407,8 +398,6 @@ namespace Filmtipset.GUI
                 {
                     if (s is MovieImages && e.PropertyName == "PosterImageFilename")
                         SetImageToGui((s as MovieImages).PosterImageFilename);
-                    if (s is MovieImages && e.PropertyName == "FanartPosterImageFilename")
-                        SetImageToGui((s as MovieImages).FanartPosterImageFilename);
                     if (s is MovieImages && e.PropertyName == "FanartImageFilename")
                         this.UpdateItemIfSelected(WindowID, ItemId);
 
@@ -424,6 +413,7 @@ namespace Filmtipset.GUI
         {
             if (!FilmtipsetSettings.SkipOverlay)
             {
+                #region overlay
                 try
                 {
                     if (string.IsNullOrEmpty(imageFilePath)) return;
@@ -470,6 +460,7 @@ namespace Filmtipset.GUI
                 {
                     Log.Error(string.Format("[Filmtipset] Error in SetImageToGui, memory isues? {0}", e.Message));
                 }
+                #endregion
             }
             else
             {
@@ -479,6 +470,4 @@ namespace Filmtipset.GUI
             }
         }
     }
-
-
 }
