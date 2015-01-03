@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<window>
+  <id>742100</id>
+  <defaultcontrol>2</defaultcontrol>
+  <allowoverlay>no</allowoverlay>
+  <rememberLastFocusedControl>yes</rememberLastFocusedControl>
+  <define>#header.label:#Filmtipset.Translation.Filmtipset.Label</define>
+  <controls>
+    <import>Filmtipset.Common.Background.xml</import>
+    <import>common.time.xml</import>
+    <control>
+      <id>0</id>
+      <type>image</type>
+      <posX>66</posX>
+      <posY>34</posY>
+      <width>68</width>
+      <height>60</height>
+      <texture>icon_movies.png</texture>
+      <animation effect="fade" time="250">WindowOpen</animation>
+      <animation effect="fade" time="250">WindowClose</animation>
+    </control>
+    <control>
+      <description>panel</description>
+      <type>image</type>
+      <id>0</id>
+      <posX>10</posX>
+      <posY>145</posY>
+      <width>1903</width>
+      <height>897</height>
+      <texture>panel_filmtipset.png</texture>
+    </control>
+    <control>
+      <description>buttons</description>
+      <type>group</type>
+      <posX>122</posX>
+      <posY>246</posY>
+      <layout>StackLayout(7, Vertical, true)</layout>
+      <control Style="SettingsButton">
+        <description>Användare</description>
+        <type>button</type>
+        <id>2</id>
+        <onup>3</onup>
+        <ondown>3</ondown>
+      </control>
+      <control Style="SettingsButton">
+        <description>Rekomendationer</description>
+        <type>button</type>
+        <id>3</id>
+        <label>#Filmtipset.Translation.RecommendedMovies.Label</label>
+        <onup>2</onup>
+        <ondown>2</ondown>
+      </control>
+    </control>
+
+    <!--import>Filmtipset.Dashboard.xml</import-->
+    <import>common.overlay.xml</import>
+  </controls>
+</window>
