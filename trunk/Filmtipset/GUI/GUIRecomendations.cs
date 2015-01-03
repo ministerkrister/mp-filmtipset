@@ -145,16 +145,19 @@ namespace Filmtipset.GUI
                     {
                         CurrentUser = newCurrentUser;
                         CurrentUser.RecommendationGenre = (int)CurrentGenre;
+                        CurrentLayout = (Layout)CurrentUser.Layout;
+                        GUIControl.SetControlLabel(GUIWindowManager.ActiveWindow, (int)FilmtipsetGUIControls.Layout, GUICommon.GetLayoutTranslation(CurrentLayout));
                         FilmtipsetSettings.CurrentAccount = CurrentUser;
-
                         ReloadMovies();
                     }
                     break;
                 case (3):
                     CurrentLayout = GUICommon.ShowLayoutMenu(CurrentLayout, PreviousSelectedIndex);
+                    CurrentUser.Layout = (int)CurrentLayout;
                     break;
                 case (4):
                     ShowGenreMenu();
+
                     break;
                 case (5):
                     //reload
@@ -192,6 +195,7 @@ namespace Filmtipset.GUI
             // update button label
             GUIControl.SetControlLabel(GetID, layoutButton.GetID, GUICommon.GetLayoutTranslation(CurrentLayout));
 
+            CurrentGenre = (FilmtipsetAPIGenre)CurrentUser.RecommendationGenre;
             GUIControl.SetControlLabel(GetID, genreButton.GetID, GenreItemName(CurrentGenre));
         }
 
@@ -226,6 +230,7 @@ namespace Filmtipset.GUI
                 {
                     CurrentGenre = g;
                     GUIControl.SetControlLabel(GetID, genreButton.GetID, GenreItemName(CurrentGenre));
+                    CurrentUser.RecommendationGenre = (int)CurrentGenre;
                     ReloadMovies();
                 }
             }

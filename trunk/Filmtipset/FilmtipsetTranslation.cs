@@ -261,7 +261,7 @@ namespace Filmtipset.GUI
 
         //M
         public static string MemberItem = "Medlem: {0}";
-        public static string MemberNoMember = "Ingen";
+        public static string MemberNoMember = "Ingen medlem vald";
         public static string movie = "Film";
         public static string Movie = "Film";
 

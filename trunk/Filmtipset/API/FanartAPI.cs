@@ -83,7 +83,8 @@ namespace Filmtipset.API
             }
             catch (Exception e)
             {
-                    Log.Error(string.Format("[Filmtipset] Error getting fanart for {0}, {1}", imdb, e.Message));
+                // Almost always 404, logging debug
+                Log.Debug(string.Format("[Filmtipset] Error getting fanart for {0}, {1}", imdb, e.Message));
             }
             return fanart;
         }
