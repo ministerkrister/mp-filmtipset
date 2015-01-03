@@ -58,6 +58,7 @@ namespace Filmtipset
         internal static int ThumbWidth { get { return 379; } } //379 //180
         internal static int ThumbHeight { get { return 563; } } //563 //250
         internal static bool SkipOverlay = true;
+        internal static int FanartCacheTimeout = 12; //In hours
 
 
         #endregion
