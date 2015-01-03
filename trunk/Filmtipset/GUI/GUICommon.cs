@@ -284,7 +284,7 @@ namespace Filmtipset.GUI
                 _stopDownload = false;
 
             // split the downloads in 5+ groups and do multithreaded downloading
-            int groupSize = (int)Math.Max(1, Math.Floor((double)itemsWithThumbs.Count / 5));
+            int groupSize = (int)Math.Max(1, Math.Floor((double)itemsWithThumbs.Count / 30));
             int groups = (int)Math.Ceiling((double)itemsWithThumbs.Count() / groupSize);
 
             for (int i = 0; i < groups; i++)
@@ -300,25 +300,41 @@ namespace Filmtipset.GUI
                     List<MovieImages> items = (List<MovieImages>)o;
                     foreach (MovieImages item in items)
                     {
+                        string remoteFanartPoster = string.Empty;
+                        string remoteFanart = string.Empty;
+                        bool getFanartUrls = true;
+                        if (FilmtipsetSettings.EnableFanart)
+                        {
+                            FanartAPI.Instance.GetFanartFromCache(item.Imdb, out getFanartUrls, out remoteFanart, out remoteFanartPoster);
+                        }
                         #region FanartPoster
                         bool havePoster = false;
-                        if (FilmtipsetSettings.PreferFanartPoster && FilmtipsetSettings.EnableFanart && !GUIImageHandler.DoLocalFileExist(item.PosterImageFilename))
+                        if (FilmtipsetSettings.EnableFanart)
                         {
-                            // stop download if we have exited window
-                            lock (lockObj)
-                                if (_stopDownload) break;
-                            string localPoster = item.PosterImageFilename;
-                            string remotePoster = FanartAPI.Instance.GetFanartPosterUrl(item.Imdb, GUI.Translation.CurrentLanguage);
-                            localPoster = item.PosterImageFilename;
-                           
 
-                            if (!string.IsNullOrEmpty(remotePoster) && !string.IsNullOrEmpty(localPoster))
+                            if (FilmtipsetSettings.PreferFanartPoster && !GUIImageHandler.DoLocalFileExist(item.PosterImageFilename))
                             {
-                                if (GUIImageHandler.DownloadImage(remotePoster, localPoster))
+                                // stop download if we have exited window
+                                lock (lockObj)
+                                    if (_stopDownload) break;
+                                string localPoster = item.PosterImageFilename;
+                                if (getFanartUrls)
                                 {
-                                    // notify that image has been downloaded
-                                    havePoster = true;
-                                    item.NotifyPropertyChanged("PosterImageFilename");
+                                    FanartAPI.Instance.GetFanartUrls(item.Imdb, GUI.Translation.CurrentLanguage, out remoteFanart, out remoteFanartPoster);
+                                    FanartAPI.Instance.AddToCache(item.Imdb, remoteFanart, remoteFanartPoster);
+                                    getFanartUrls = false;
+                                }
+                                localPoster = item.PosterImageFilename;
+
+
+                                if (!string.IsNullOrEmpty(remoteFanartPoster) && !string.IsNullOrEmpty(localPoster))
+                                {
+                                    if (GUIImageHandler.DownloadImage(remoteFanartPoster, localPoster))
+                                    {
+                                        // notify that image has been downloaded
+                                        havePoster = true;
+                                        item.NotifyPropertyChanged("PosterImageFilename");
+                                    }
                                 }
                             }
                         }
@@ -357,8 +373,13 @@ namespace Filmtipset.GUI
                         }
                         else
                         {
-                            item.Fanart = FanartAPI.Instance.GetFanartBackgroundUrl(item.Imdb, GUI.Translation.CurrentLanguage);
-                            string remoteFanart = item.Fanart;
+                            if (getFanartUrls)
+                            {
+                                FanartAPI.Instance.GetFanartUrls(item.Imdb, GUI.Translation.CurrentLanguage, out remoteFanart, out remoteFanartPoster);
+                                FanartAPI.Instance.AddToCache(item.Imdb, remoteFanart, remoteFanartPoster);
+                                getFanartUrls = false;
+                            }
+                            item.Fanart = remoteFanart;
                             localFanart = item.FanartImageFilename;
 
                             if (!string.IsNullOrEmpty(remoteFanart) && !string.IsNullOrEmpty(localFanart))
