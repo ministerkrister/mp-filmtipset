@@ -264,6 +264,7 @@ namespace Filmtipset.GUI
         public static string MemberNoMember = "Ingen medlem vald";
         public static string movie = "Film";
         public static string Movie = "Film";
+        public static string Movies = "Filmer";
 
         //N
         public static string NotAvailable = "-";

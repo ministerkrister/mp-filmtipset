@@ -41,7 +41,7 @@ namespace Filmtipset.GUI
         {
             if (seen)
                 return "FilmtipsetWatched.png";
-            return "";
+            return "FilmtipsetNotWatched.png";
         }
 
         internal static string GetGradeIcon(int grade)
