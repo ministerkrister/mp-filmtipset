@@ -231,6 +231,17 @@ namespace Filmtipset.GUI
         }
 
         #endregion
+
+        #region external plugin dll calls,
+
+        //do not call this method if you don't check if Trailers plugin dll exsists!!
+        internal static void CallTrailersPlugin(Movie selectedMovie, GUIListItem selectedItem)
+        {
+            int y = 0;
+            int.TryParse(selectedMovie.Year, out y);
+            Trailers.Trailers.SearchForTrailers(new Trailers.Providers.MediaItem() { IMDb = !string.IsNullOrEmpty(selectedMovie.Imdb) ? "tt" + selectedMovie.Imdb : "", Title = string.IsNullOrEmpty(selectedMovie.OrgName) ? selectedMovie.Name : selectedMovie.OrgName, MediaType = Trailers.Providers.MediaItemType.Movie, Year = y, Poster = selectedItem.HasThumbnail ? selectedItem.ThumbnailImage : "" });
+        }
+        #endregion
     }
     internal sealed class ImageDownloader
     {
