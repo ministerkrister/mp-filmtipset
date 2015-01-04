@@ -6,7 +6,17 @@
   <rememberLastFocusedControl>yes</rememberLastFocusedControl>
   <define>#header.label:#Filmtipset.Translation.Filmtipset.Label</define>
   <controls>
-    <import>Filmtipset.Common.Background.xml</import>
+    <control>
+      <description>BACKGROUND</description>
+      <id>0</id>
+      <type>image</type>
+      <posX>0</posX>
+      <posY>0</posY>
+      <width>1920</width>
+      <height>1080</height>
+      <texture>background.png</texture>
+      <shouldCache>true</shouldCache>
+    </control>
     <import>common.time.xml</import>
     <control>
       <id>0</id>

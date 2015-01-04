@@ -17,80 +17,8 @@
       <texture>background.png</texture>
       <shouldCache>true</shouldCache>
     </control>
-
     <import>Filmtipset.Common.Fanart.xml</import>
-
-    <!--            :: BACKGROUNDS ::           	 -->
-    <control>
-      <description>background listview</description>
-      <type>image</type>
-      <id>0</id>
-      <posX>0</posX>
-      <posY>0</posY>
-      <width>1920</width>
-      <height>1080</height>
-      <texture>fanart_overlay.png</texture>
-      <visible>!Control.IsVisible(51)</visible>
-      <animation effect="fade" time="250">WindowOpen</animation>
-      <animation effect="fade" time="250">WindowClose</animation>
-    </control>
-
-    <control>
-      <description>background listview</description>
-      <type>image</type>
-      <id>0</id>
-      <posX>10</posX>
-      <posY>252</posY>
-      <width>1903</width>
-      <height>790</height>
-      <texture>panel_list.png</texture>
-      <visible>facadeview.list + Control.IsVisible(50)</visible>
-      <animation effect="fade" time="250">WindowOpen</animation>
-      <animation effect="fade" time="250">WindowClose</animation>
-    </control>
-
-    <control>
-      <description>background thumbs</description>
-      <type>image</type>
-      <id>0</id>
-      <posX>10</posX>
-      <posY>252</posY>
-      <width>1903</width>
-      <height>790</height>
-      <texture>panel_thumbs2.png</texture>
-      <visible>[facadeview.smallicons | facadeview.largeicons] + Control.IsVisible(50)</visible>
-      <animation effect="fade" time="250">WindowOpen</animation>
-      <animation effect="fade" time="250">WindowClose</animation>
-    </control>
-
-    <control>
-      <description>filmstrip overlay</description>
-      <type>image</type>
-      <id>0</id>
-      <posX>0</posX>
-      <posY>279</posY>
-      <width>1920</width>
-      <height>801</height>
-      <texture>filmstrip_overlay.png</texture>
-      <visible>[facadeview.filmstrip | facadeview.coverflow] + Control.IsVisible(50)</visible>
-      <animation effect="fade" time="250">WindowOpen</animation>
-      <animation effect="fade" time="250">WindowClose</animation>
-    </control>
-
-    <control>
-      <description>filmstrip overlay</description>
-      <type>image</type>
-      <id>0</id>
-      <posX>52</posX>
-      <posY>958</posY>
-      <width>1820</width>
-      <height>84</height>
-      <texture>BasicHomeSubBG.png</texture>
-      <visible>[facadeview.filmstrip | facadeview.coverflow] + Control.IsVisible(50)</visible>
-      <animation effect="fade" time="250">WindowOpen</animation>
-      <animation effect="fade" time="250">WindowClose</animation>
-    </control>
-
+    <import>Filmtipset.Common.Background.xml</import>
     <control>
       <id>0</id>
       <type>image</type>
@@ -106,7 +34,7 @@
     <control>
       <description>Current View</description>
       <type>label</type>
-      <label>#Filmtipset.Translation.Filmtipset.Label</label>
+      <label>#Filmtipset.Translation.Filmtipset.Label - #Filmtipset.User.Name</label>
       <id>0</id>
       <posX>144</posX>
       <posY>94</posY>
@@ -134,21 +62,6 @@
       <animation effect="fade" time="250">WindowClose</animation>
     </control>
 
-    <!--            :: Listview Lines ::            -->
-
-    <control>
-      <description>List Lines</description>
-      <type>image</type>
-      <id>1</id>
-      <posX>1222</posX>
-      <posY>385</posY>
-      <width>607</width>
-      <height>506</height>
-      <texture>list_lines.png</texture>
-      <visible>facadeview.list + control.isvisible(50)</visible>
-      <animation effect="fade" time="250">WindowOpen</animation>
-      <animation effect="fade" time="250">WindowClose</animation>
-    </control>
 
  
     <!--            :: HIDDEN MENU ::           	 -->
@@ -290,6 +203,7 @@
         </control>
       </control>
     </control>
+    
     <import>Filmtipset.Common.Facade.xml</import>
     <import>Filmtipset.Common.Movies.xml</import>
     <import>common.overlay.xml</import>
