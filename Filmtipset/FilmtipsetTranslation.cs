@@ -201,6 +201,9 @@ namespace Filmtipset.GUI
         /// if that also fails it will use the hardcoded strings as a last resort.
         /// </summary>
 
+        public static string AltTitle = "Alternativa titlar";
+        // D
+        public static string Director = "Regisör"; 
         // F
         public static string Filmtipset = "Filmtipset";
         // G
@@ -267,19 +270,23 @@ namespace Filmtipset.GUI
         public static string Movies = "Filmer";
 
         //N
-        public static string NotAvailable = "-";
+        public static string NotAvailable = "N/A";
         public static string NoMoviesFound = "Inga filmer hittades";
 
         //O
         public static string OnlineVideosSearch = "Sök i OnlineVideos";
         public static string OnlineVideosOrgName = "Sök i OnlineVideos med orginaltitel";
-
+        public static string OrgName = "Orginaltitel";
         //R
         public static string recommendations = "Rekommendationer";
         public static string RecommendedMovies = "Rekommendationer";
+        public static string Runtime = "Speltid";
 
         //T
         public static string Trailers = "Trailers";
+
+        //Y
+        public static string Year = "År";
 
         #endregion
 

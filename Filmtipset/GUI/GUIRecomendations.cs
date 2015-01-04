@@ -65,6 +65,7 @@ namespace Filmtipset.GUI
             {
                 if (_Movies == null || LastRequest < DateTime.UtcNow.Subtract(new TimeSpan(0, FilmtipsetSettings.WebRequestCacheMinutes, 0)))
                 {
+                    ImageDownloader.Instance.StopDownloads = true;
                     _Movies = FilmtipsetAPI.Instance.GetRecommendedMovies(CurrentGenre);
                     LastRequest = DateTime.UtcNow;
                     PreviousSelectedIndex = 0;

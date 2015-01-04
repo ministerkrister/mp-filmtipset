@@ -123,7 +123,13 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Content Include="Resources\Skin\scrapp.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Resources\Skin\Titan\Filmtipset.Common.Background.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Skin\Titan\Filmtipset.Common.Facade.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Skin\Titan\Filmtipset.Common.Fanart.xml">
