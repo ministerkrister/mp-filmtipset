@@ -3,7 +3,7 @@
   <id>87263</id>
   <defaultcontrol>50</defaultcontrol>
   <allowoverlay>no</allowoverlay>
-  <define>#header.label:#Filmtipset.Translation.RecommendedMovies.Label</define>
+  <define>#header.label:#Filmtipset.Translation.RecommendedMovies.Label - #Filmtipset.CurrentGenre.Label</define>
   <controls>
 
     <control>
@@ -106,7 +106,7 @@
     <control>
       <description>Current View</description>
       <type>label</type>
-      <label>#Filmtipset.CurrentGenre.Label</label>
+      <label>#Filmtipset.Translation.Filmtipset.Label</label>
       <id>0</id>
       <posX>144</posX>
       <posY>94</posY>
@@ -212,7 +212,7 @@
         <animation effect="slide" start="-150,0" time="100">visible</animation>
         <animation effect="fade" time="50">visible</animation>
         <animation effect="fade" time="0">hidden</animation>
-      </control>
+      </control>     
       <control>
         <description>Menu label</description>
         <type>label</type>
