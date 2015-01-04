@@ -174,10 +174,23 @@ namespace Filmtipset.GUI
         #region Movie properties
         internal static void SetMovieProperties(Movie movie)
         {
-            if (movie == null) return;
+            SetProperty("#Filmtipset.Movie.Actors", movie.Actors);
             SetProperty("#Filmtipset.Movie.AltTitle", movie.AltTitle);
             SetProperty("#Filmtipset.Movie.Country", movie.Country);
+            SetProperty("#Filmtipset.Movie.Description", movie.Description); 
             SetProperty("#Filmtipset.Movie.Director", movie.Director);
+            SetProperty("#Filmtipset.Movie.Id", movie.Id.ToString());
+            SetProperty("#Filmtipset.Movie.Imdb", "tt" + movie.Imdb);
+            SetProperty("#Filmtipset.Movie.Length", MediaPortal.Util.Utils.SecondsToHMString(movie.Length * 60));
+            SetProperty("#Filmtipset.Movie.Name", movie.Name);
+            SetProperty("#Filmtipset.Movie.OrgName", movie.OrgName);
+            SetProperty("#Filmtipset.Movie.PosterImageFilename", movie.Images.PosterImageFilename);
+            SetProperty("#Filmtipset.Movie.TimeSeen", movie.TimeSeen);
+            SetProperty("#Filmtipset.Movie.Url", movie.Url);
+            SetProperty("#Filmtipset.Movie.Writers", movie.Writers);
+            SetProperty("#Filmtipset.Movie.Year", movie.Year);
+            if (movie == null) return;
+            
             if (movie.FimltipsetGrade != null)
             {
                 SetProperty("#Filmtipset.Movie.FimltipsetGrade.Count", movie.FimltipsetGrade.Count.ToString());
@@ -195,38 +208,36 @@ namespace Filmtipset.GUI
                 SetProperty("#Filmtipset.Movie.Grade.Type", GUI.Translation.GetByName("GradeType" + movie.Grade.Type));
                 SetProperty("#Filmtipset.Movie.Grade.Grade", (v * 2).ToString());
             }
-            SetProperty("#Filmtipset.Movie.Id", movie.Id.ToString());
-            SetProperty("#Filmtipset.Movie.Imdb", "tt" + movie.Imdb);
-            SetProperty("#Filmtipset.Movie.Length", MediaPortal.Util.Utils.SecondsToHMString(movie.Length * 60));
-            SetProperty("#Filmtipset.Movie.Name", movie.Name);
-            SetProperty("#Filmtipset.Movie.OrgName", movie.OrgName);
-            SetProperty("#Filmtipset.Movie.Url", movie.Url);
-            SetProperty("#Filmtipset.Movie.Year", movie.Year);
-            SetProperty("#Filmtipset.Movie.PosterImageFilename", movie.Images.PosterImageFilename);
         }
 
         internal static void ClearMovieProperties()
         {
-            SetProperty("#Filmtipset.Movie.AltTitle", string.Empty);
-            SetProperty("#Filmtipset.Movie.Country", string.Empty);
-            SetProperty("#Filmtipset.Movie.Director", string.Empty);
-            SetProperty("#Filmtipset.Movie.FimltipsetGrade.Count", string.Empty);
-            SetProperty("#Filmtipset.Movie.FimltipsetGrade.Grade", string.Empty);
-            SetProperty("#Filmtipset.Movie.Grade.Type", string.Empty);
-            SetProperty("#Filmtipset.Movie.Grade.Grade", string.Empty);
-            SetProperty("#Filmtipset.Movie.Id", string.Empty);
-            SetProperty("#Filmtipset.Movie.Imdb", string.Empty);
-            SetProperty("#Filmtipset.Movie.Country", string.Empty);
-            SetProperty("#Filmtipset.Movie.Name", string.Empty);
-            SetProperty("#Filmtipset.Movie.OrgName", string.Empty);
-            SetProperty("#Filmtipset.Movie.Url", string.Empty);
-            SetProperty("#Filmtipset.Movie.Year", string.Empty);
-            SetProperty("#Filmtipset.Movie.PosterImageFilename", string.Empty);
+            GUIUtils.SetProperty("#Filmtipset.Movie.Actors", string.Empty);
+            GUIUtils.SetProperty("#Filmtipset.Movie.AltTitle", string.Empty);
+            GUIUtils.SetProperty("#Filmtipset.Movie.Country", string.Empty);
+            GUIUtils.SetProperty("#Filmtipset.Movie.Description", string.Empty);
+            GUIUtils.SetProperty("#Filmtipset.Movie.Director", string.Empty);
+            GUIUtils.SetProperty("#Filmtipset.Movie.FimltipsetGrade.Count", string.Empty);
+            GUIUtils.SetProperty("#Filmtipset.Movie.FimltipsetGrade.Grade", string.Empty);
+            GUIUtils.SetProperty("#Filmtipset.Movie.FimltipsetGrade.Stars", string.Empty);
+            GUIUtils.SetProperty("#Filmtipset.Movie.Grade.Type", string.Empty);
+            GUIUtils.SetProperty("#Filmtipset.Movie.Grade.Grade", string.Empty);
+            GUIUtils.SetProperty("#Filmtipset.Movie.Id", string.Empty);
+            GUIUtils.SetProperty("#Filmtipset.Movie.Imdb", string.Empty);
+            GUIUtils.SetProperty("#Filmtipset.Movie.Length", string.Empty);
+            GUIUtils.SetProperty("#Filmtipset.Movie.Name", string.Empty);
+            GUIUtils.SetProperty("#Filmtipset.Movie.OrgName", string.Empty);
+            GUIUtils.SetProperty("#Filmtipset.Movie.PosterImageFilename", string.Empty);
+            GUIUtils.SetProperty("#Filmtipset.Movie.TimeSeen", string.Empty);
+            GUIUtils.SetProperty("#Filmtipset.Movie.Url", string.Empty);
+            GUIUtils.SetProperty("#Filmtipset.Movie.Writers", string.Empty);
+            GUIUtils.SetProperty("#Filmtipset.Movie.Year", string.Empty);
         }
 
         internal static void SetProperty(string property, string value)
         {
             string propertyValue = string.IsNullOrEmpty(value) ? Translation.GetByName("NotAvailable") : value;
+            //string propertyValue = string.IsNullOrEmpty(value) ? " " : value;
             GUIUtils.SetProperty(property, propertyValue);
         }
 
@@ -295,7 +306,7 @@ namespace Filmtipset.GUI
                 _stopDownload = false;
 
             // split the downloads in 5+ groups and do multithreaded downloading
-            int groupSize = (int)Math.Max(1, Math.Floor((double)itemsWithThumbs.Count / 30));
+            int groupSize = (int)Math.Max(1, Math.Floor((double)itemsWithThumbs.Count / 5));
             int groups = (int)Math.Ceiling((double)itemsWithThumbs.Count() / groupSize);
 
             for (int i = 0; i < groups; i++)

@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <window>
   <controls>
-    <!--            :: LIST / THUMBVIEW ::            -->
     <control Style="smallTitle">
       <description>Selected item Label</description>
       <type>fadelabel</type>
@@ -13,6 +12,7 @@
       <animation effect="fade" start="0" end="100" time="300" delay="350">WindowOpen</animation>
       <animation effect="fade" start="100" end="0" time="0" delay="0">WindowClose</animation>
     </control>
+    <!--            :: LIST ::            -->
     <control>
       <description>Poster shadow</description>
       <type>image</type>
@@ -52,14 +52,15 @@
       <animation effect="fade" time="250">WindowOpen</animation>
       <animation effect="fade" time="250">WindowClose</animation>
     </control>
+    
     <!--            :: LISTVIEW ::            -->
     <control Style="InfoLabel">
       <description>Member grade label</description>
       <type>label</type>
-      <label>#Filmtipset.Movie.Grade.Type:</label>
+      <label>#Filmtipset.Movie.Grade.Type</label>
       <posX>565</posX>
       <posY>343</posY>
-      <visible>facadeview.list</visible>
+      <visible>facadeview.list+!string.equals(#Filmtipset.Movie.Grade.Grade,)</visible>
       <animation effect="fade" time="250">WindowOpen</animation>
       <animation effect="fade" time="250">WindowClose</animation>
     </control>
@@ -84,7 +85,7 @@
       <align>left</align>
       <imagesToDraw>5</imagesToDraw>
       <percentage>#Filmtipset.Movie.Grade.Grade</percentage>
-      <visible>facadeview.list</visible>
+      <visible>facadeview.list+!string.equals(#Filmtipset.Movie.Grade.Grade,)</visible>
       <animation effect="fade" time="250">WindowOpen</animation>
       <animation effect="fade" time="250">WindowClose</animation>
     </control>
@@ -92,10 +93,10 @@
       <description>Filmtipset grade</description>
       <id>0</id>
       <type>label</type>
-      <label>#Filmtipset.Translation.GradeFilmtipset.Label:</label>
+      <label>#Filmtipset.Translation.GradeFilmtipset.Label</label>
       <posX>565</posX>
       <posY>379</posY>
-      <visible>facadeview.list</visible>
+      <visible>facadeview.list+!string.equals(#Filmtipset.Movie.FimltipsetGrade.Stars,)</visible>
       <animation effect="fade" time="250">WindowOpen</animation>
       <animation effect="fade" time="250">WindowClose</animation>
     </control>
@@ -120,7 +121,7 @@
       <align>left</align>
       <imagesToDraw>5</imagesToDraw>
       <percentage>#Filmtipset.Movie.FimltipsetGrade.Stars</percentage>
-      <visible>facadeview.list</visible>
+      <visible>facadeview.list+!string.equals(#Filmtipset.Movie.FimltipsetGrade.Stars,)</visible>
       <animation effect="fade" time="250">WindowOpen</animation>
       <animation effect="fade" time="250">WindowClose</animation>
     </control>
@@ -136,34 +137,12 @@
       <animation effect="fade" time="250">WindowClose</animation>
     </control>
     <control Style="InfoLabel">
-      <description>Org. title</description>
-      <type>fadelabel</type>
-      <label>#Filmtipset.Translation.OrgName.Label:</label>
-      <id>0</id>
-      <posX>565</posX>
-      <posY>415</posY>
-      <visible>facadeview.list+!string.equals(#Filmtipset.Movie.OrgName,)</visible>
-      <animation effect="fade" time="250">WindowOpen</animation>
-      <animation effect="fade" time="250">WindowClose</animation>
-    </control>
-    <control Style="InfoValueSmall">
-      <description>Org. title</description>
-      <id>0</id>
-      <type>fadelabel</type>
-      <label>#Filmtipset.Movie.OrgName</label>
-      <posX>798</posX>
-      <posY>415</posY>
-      <visible>facadeview.list+!string.equals(#Filmtipset.Movie.OrgName,)</visible>
-      <animation effect="fade" time="250">WindowOpen</animation>
-      <animation effect="fade" time="250">WindowClose</animation>
-    </control>
-    <control Style="InfoLabel">
       <description>Yaer</description>
       <id>0</id>
       <type>fadelabel</type>
       <label>#Filmtipset.Translation.Year.Label</label>
       <posX>565</posX>
-      <posY>451</posY>
+      <posY>415</posY>
       <visible>facadeview.list+!string.equals(#Filmtipset.Movie.Year,)</visible>
       <animation effect="fade" time="250">WindowOpen</animation>
       <animation effect="fade" time="250">WindowClose</animation>
@@ -174,30 +153,8 @@
       <type>fadelabel</type>
       <label>#Filmtipset.Movie.Year</label>
       <posX>798</posX>
-      <posY>451</posY>
+      <posY>415</posY>
       <visible>facadeview.list+!string.equals(#Filmtipset.Movie.Year,)</visible>
-      <animation effect="fade" time="250">WindowOpen</animation>
-      <animation effect="fade" time="250">WindowClose</animation>
-    </control>
-    <control Style="InfoLabel">
-      <description>Director</description>
-      <id>0</id>
-      <type>fadelabel</type>
-      <label>#Filmtipset.Translation.Director.Label</label>
-      <posX>565</posX>
-      <posY>487</posY>
-      <visible>facadeview.list+!string.equals(#Filmtipset.Movie.Director,)</visible>
-      <animation effect="fade" time="250">WindowOpen</animation>
-      <animation effect="fade" time="250">WindowClose</animation>
-    </control>
-    <control Style="InfoValueSmall">
-      <description>Director</description>
-      <id>0</id>
-      <type>fadelabel</type>
-      <label>#Filmtipset.Movie.Director</label>
-      <posX>798</posX>
-      <posY>487</posY>
-      <visible>facadeview.list+!string.equals(#Filmtipset.Movie.Director,)</visible>
       <animation effect="fade" time="250">WindowOpen</animation>
       <animation effect="fade" time="250">WindowClose</animation>
     </control>
@@ -207,7 +164,7 @@
       <type>fadelabel</type>
       <label>#Filmtipset.Translation.Runtime.Label</label>
       <posX>565</posX>
-      <posY>523</posY>
+      <posY>451</posY>
       <visible>facadeview.list+!string.equals(#Filmtipset.Movie.Director,)</visible>
       <animation effect="fade" time="250">WindowOpen</animation>
       <animation effect="fade" time="250">WindowClose</animation>
@@ -218,11 +175,84 @@
       <type>fadelabel</type>
       <label>#Filmtipset.Movie.Length</label>
       <posX>798</posX>
-      <posY>523</posY>
+      <posY>451</posY>
       <visible>facadeview.list+!string.equals(#Filmtipset.Movie.Length,)</visible>
       <animation effect="fade" time="250">WindowOpen</animation>
       <animation effect="fade" time="250">WindowClose</animation>
     </control>
+    <control Style="InfoLabel">
+      <description>Org. title</description>
+      <type>fadelabel</type>
+      <label>#Filmtipset.Translation.OrgName.Label</label>
+      <id>0</id>
+      <posX>565</posX>
+      <posY>487</posY>
+      <width>555</width>
+      <visible>facadeview.list+!string.equals(#Filmtipset.Movie.OrgName,)</visible>
+      <animation effect="fade" time="250">WindowOpen</animation>
+      <animation effect="fade" time="250">WindowClose</animation>
+    </control>
+    <control Style="InfoValueSmall">
+      <description>Org. title</description>
+      <id>0</id>
+      <type>fadelabel</type>
+      <label>#Filmtipset.Movie.OrgName</label>
+      <width>555</width>
+      <posX>565</posX>
+      <posY>523</posY>
+      <visible>facadeview.list+!string.equals(#Filmtipset.Movie.OrgName,)</visible>
+      <animation effect="fade" time="250">WindowOpen</animation>
+      <animation effect="fade" time="250">WindowClose</animation>
+    </control>
+    <control Style="InfoLabel">
+      <description>Alt title</description>
+      <id>0</id>
+      <type>label</type>
+      <label>#Filmtipset.Translation.AltTitle.Label</label>
+      <posX>565</posX>
+      <posY>559</posY>
+      <width>555</width>
+      <visible>facadeview.list+!string.equals(#Filmtipset.Movie.AltTitle,)</visible>
+      <animation effect="fade" time="250">WindowOpen</animation>
+      <animation effect="fade" time="250">WindowClose</animation>
+    </control>
+    <control Style="InfoValueSmall">
+      <description>Alt title</description>
+      <id>0</id>
+      <type>fadelabel</type>
+      <label>#Filmtipset.Movie.AltTitle</label>
+      <posX>565</posX>
+      <posY>595</posY>
+      <width>555</width>
+      <visible>facadeview.list+!string.equals(#Filmtipset.Movie.AltTitle,)</visible>
+      <animation effect="fade" time="250">WindowOpen</animation>
+      <animation effect="fade" time="250">WindowClose</animation>
+    </control>
+    <control Style="InfoLabel">
+      <description>Director</description>
+      <id>0</id>
+      <type>fadelabel</type>
+      <label>#Filmtipset.Translation.Director.Label</label>
+      <posX>565</posX>
+      <posY>631</posY>
+      <width>555</width>
+      <visible>facadeview.list+!string.equals(#Filmtipset.Movie.Director,)</visible>
+      <animation effect="fade" time="250">WindowOpen</animation>
+      <animation effect="fade" time="250">WindowClose</animation>
+    </control>
+    <control Style="InfoValueSmall">
+      <description>Director</description>
+      <id>0</id>
+      <type>fadelabel</type>
+      <label>#Filmtipset.Movie.Director</label>
+      <posX>565</posX>
+      <posY>667</posY>
+      <width>555</width>
+      <visible>facadeview.list+!string.equals(#Filmtipset.Movie.Director,)</visible>
+      <animation effect="fade" time="250">WindowOpen</animation>
+      <animation effect="fade" time="250">WindowClose</animation>
+    </control>
+
     <!--            :: THUMBVIEW ::            -->
     <control>
       <description>Movie Title value</description>
@@ -231,7 +261,7 @@
       <posX>118</posX>
       <posY>332</posY>
       <width>555</width>
-      <label>#Trakt.Movie.Title</label>
+      <label>#Filmtipset.Movie.Name</label>
       <font>fontB16</font>
       <textcolor>FF00b7ff</textcolor>
       <shadowAngle>120</shadowAngle>
@@ -241,166 +271,227 @@
       <animation effect="fade" time="250">WindowOpen</animation>
       <animation effect="fade" time="250">WindowClose</animation>
     </control>
+    <!--
     <control Style="InfoLabel">
-      <description>Release Date Label</description>
+      <description>#Filmtipset.Movie.AltTitle</description>
       <type>label</type>
       <id>0</id>
       <posX>118</posX>
       <posY>445</posY>
-      <label>#Trakt.Translation.Released.Label</label>
-      <visible>[facadeview.smallicons | facadeview.largeicons]+!string.equals(#Trakt.Movie.Released,)</visible>
+      <label>#Filmtipset.Translation.AltTitle.Label</label>
+      <visible>[facadeview.smallicons | facadeview.largeicons]</visible>
       <animation effect="fade" time="250">WindowOpen</animation>
       <animation effect="fade" time="250">WindowClose</animation>
     </control>
     <control Style="InfoValueWide">
-      <description>Release Date Value</description>
+      <description>#Filmtipset.Movie.AltTitle</description>
       <type>label</type>
       <id>0</id>
-      <label>#Trakt.Movie.Released</label>
+      <label>#Filmtipset.Movie.AltTitle</label>
       <posX>350</posX>
       <posY>445</posY>
-      <visible>[facadeview.smallicons | facadeview.largeicons]+!string.equals(#Trakt.Movie.Released,)</visible>
+      <visible>[facadeview.smallicons | facadeview.largeicons]</visible>
+      <animation effect="fade" time="250">WindowOpen</animation>
+      <animation effect="fade" time="250">WindowClose</animation>
+    </control>
+    -->
+    <control Style="InfoLabel">
+      <description>Member grade label</description>
+      <type>label</type>
+      <label>#Filmtipset.Movie.Grade.Type</label>
+      <posX>118</posX>
+      <posY>445</posY>
+      <visible>[facadeview.smallicons | facadeview.largeicons]+!string.equals(#Filmtipset.Movie.Grade.Grade,)</visible>
+      <animation effect="fade" time="250">WindowOpen</animation>
+      <animation effect="fade" time="250">WindowClose</animation>
+    </control>
+    <control>
+      <type>imagelist</type>
+      <id>0</id>
+      <posX>350</posX>
+      <posY>450</posY>
+      <width>315</width>
+      <height>29</height>
+      <textureWidth>27</textureWidth>
+      <textureHeight>27</textureHeight>
+      <subitems>
+        <subitem>FilmtipsetBadgeGrade5Grey.png</subitem>
+        <subitem>#(iif(eq(#Filmtipset.Movie.Grade.Grade, '2'),'FilmtipsetBadgeGrade1.png','FilmtipsetBadgeGrade1Grey.png'))</subitem>
+        <subitem>#(iif(eq(#Filmtipset.Movie.Grade.Grade, '4'),'FilmtipsetBadgeGrade2.png','FilmtipsetBadgeGrade2Grey.png'))</subitem>
+        <subitem>#(iif(eq(#Filmtipset.Movie.Grade.Grade, '6'),'FilmtipsetBadgeGrade3.png','FilmtipsetBadgeGrade3Grey.png'))</subitem>
+        <subitem>#(iif(eq(#Filmtipset.Movie.Grade.Grade, '8'),'FilmtipsetBadgeGrade4.png','FilmtipsetBadgeGrade4Grey.png'))</subitem>
+        <subitem>FilmtipsetBadgeGrade5.png</subitem>
+      </subitems>
+      <orientation>horizontal</orientation>
+      <align>left</align>
+      <imagesToDraw>5</imagesToDraw>
+      <percentage>#Filmtipset.Movie.Grade.Grade</percentage>
+      <visible>[facadeview.smallicons | facadeview.largeicons]+!string.equals(#Filmtipset.Movie.Grade.Grade,)</visible>
       <animation effect="fade" time="250">WindowOpen</animation>
       <animation effect="fade" time="250">WindowClose</animation>
     </control>
     <control Style="InfoLabel">
-      <description>Runtime Label</description>
-      <type>label</type>
+      <description>Filmtipset grade</description>
       <id>0</id>
+      <type>label</type>
+      <label>#Filmtipset.Translation.GradeFilmtipset.Label</label>
       <posX>118</posX>
       <posY>481</posY>
-      <label>#Trakt.Translation.Runtime.Label</label>
-      <visible>[facadeview.smallicons | facadeview.largeicons]+!string.equals(#Trakt.Movie.Runtime,)</visible>
+      <visible>[facadeview.smallicons | facadeview.largeicons]+!string.equals(#Filmtipset.Movie.FimltipsetGrade.Stars,)</visible>
       <animation effect="fade" time="250">WindowOpen</animation>
       <animation effect="fade" time="250">WindowClose</animation>
     </control>
-    <control Style="InfoValueWide">
-      <description>Runtime Value</description>
-      <type>label</type>
+    <control>
+      <type>imagelist</type>
       <id>0</id>
       <posX>350</posX>
-      <posY>481</posY>
-      <label>#Trakt.Movie.Runtime #Trakt.Translation.Minutes.Label</label>
-      <visible>[facadeview.smallicons | facadeview.largeicons]+!string.equals(#Trakt.Movie.Runtime,)</visible>
+      <posY>487</posY>
+      <width>315</width>
+      <height>29</height>
+      <textureWidth>27</textureWidth>
+      <textureHeight>27</textureHeight>
+      <subitems>
+        <subitem>FilmtipsetBadgeGrade5Grey.png</subitem>
+        <subitem>#(iif(eq(#Filmtipset.Movie.FimltipsetGrade.Stars, '2'),'FilmtipsetBadgeGrade1.png','FilmtipsetBadgeGrade1Grey.png'))</subitem>
+        <subitem>#(iif(eq(#Filmtipset.Movie.FimltipsetGrade.Stars, '4'),'FilmtipsetBadgeGrade2.png','FilmtipsetBadgeGrade2Grey.png'))</subitem>
+        <subitem>#(iif(eq(#Filmtipset.Movie.FimltipsetGrade.Stars, '6'),'FilmtipsetBadgeGrade3.png','FilmtipsetBadgeGrade3Grey.png'))</subitem>
+        <subitem>#(iif(eq(#Filmtipset.Movie.FimltipsetGrade.Stars, '8'),'FilmtipsetBadgeGrade4.png','FilmtipsetBadgeGrade4Grey.png'))</subitem>
+        <subitem>FilmtipsetBadgeGrade5.png</subitem>
+      </subitems>
+      <orientation>horizontal</orientation>
+      <align>left</align>
+      <imagesToDraw>5</imagesToDraw>
+      <percentage>#Filmtipset.Movie.FimltipsetGrade.Stars</percentage>
+      <visible>[facadeview.smallicons | facadeview.largeicons]+!string.equals(#Filmtipset.Movie.FimltipsetGrade.Stars,)</visible>
       <animation effect="fade" time="250">WindowOpen</animation>
       <animation effect="fade" time="250">WindowClose</animation>
     </control>
-    <control Style="InfoValueWide">
-      <description>Rating/Votes Value</description>
+    <control>
+      <description>Grade count</description>
+      <id>0</id>
+      <type>label</type>
+      <label>(#Filmtipset.Movie.FimltipsetGrade.Count #Filmtipset.Translation.GradeCount.Label)</label>
+      <posX>490</posX>
+      <posY>481</posY>
+      <visible>[facadeview.smallicons | facadeview.largeicons]+!string.equals(#Filmtipset.Movie.FimltipsetGrade.Count,)</visible>
+      <animation effect="fade" time="250">WindowOpen</animation>
+      <animation effect="fade" time="250">WindowClose</animation>
+    </control>
+    <control Style="InfoLabel">
+      <description>Yaer</description>
+      <id>0</id>
       <type>fadelabel</type>
-      <id>0</id>
-      <posX>168</posX>
-      <posY>399</posY>
-      <label>#Trakt.Movie.Ratings.Percentage% (#Trakt.Movie.Ratings.Votes #Trakt.Translation.Votes.Label)</label>
-      <visible>[facadeview.smallicons | facadeview.largeicons]+!string.equals(#Trakt.Movie.Ratings.Percentage,)</visible>
-      <animation effect="fade" time="250">WindowOpen</animation>
-      <animation effect="fade" time="250">WindowClose</animation>
-    </control>
-    <control>
-      <description>Rating Icon</description>
-      <type>image</type>
-      <id>1</id>
-      <width>39</width>
-      <height>36</height>
-      <posX>113</posX>
-      <posY>399</posY>
-      <texture>#Trakt.Movie.Ratings.Icon.png</texture>
-      <visible>[facadeview.smallicons | facadeview.largeicons]+!string.equals(#Trakt.Movie.Ratings.Icon,)</visible>
-      <animation effect="fade" time="250">WindowOpen</animation>
-      <animation effect="fade" time="250">WindowClose</animation>
-    </control>
-    <control Style="InfoLabel">
-      <description>Certification Label</description>
-      <id>0</id>
-      <type>label</type>
-      <label>#Trakt.Translation.Certification.Label</label>
+      <label>#Filmtipset.Translation.Year.Label</label>
       <posX>118</posX>
-      <posY>554</posY>
-      <visible>[facadeview.smallicons | facadeview.largeicons]+!string.equals(#Trakt.Movie.Certification,)</visible>
+      <posY>517</posY>
+      <visible>[facadeview.smallicons | facadeview.largeicons]+!string.equals(#Filmtipset.Movie.Year,)</visible>
       <animation effect="fade" time="250">WindowOpen</animation>
       <animation effect="fade" time="250">WindowClose</animation>
     </control>
     <control Style="InfoValueSmall">
-      <description>Certification</description>
+      <description>Year</description>
       <id>0</id>
-      <type>label</type>
-      <label>#Trakt.Movie.Certification</label>
+      <type>fadelabel</type>
+      <label>#Filmtipset.Movie.Year</label>
       <posX>350</posX>
-      <posY>554</posY>
-      <visible>[facadeview.smallicons | facadeview.largeicons]+!string.equals(#Trakt.Movie.Certification,)</visible>
+      <posY>517</posY>
+      <visible>[facadeview.smallicons | facadeview.largeicons]+!string.equals(#Filmtipset.Movie.Year,)</visible>
       <animation effect="fade" time="250">WindowOpen</animation>
       <animation effect="fade" time="250">WindowClose</animation>
     </control>
     <control Style="InfoLabel">
-      <description>Genres Label</description>
+      <description>Runtime</description>
       <id>0</id>
-      <type>label</type>
-      <label>#Trakt.Translation.Genre.Label</label>
+      <type>fadelabel</type>
+      <label>#Filmtipset.Translation.Runtime.Label</label>
       <posX>118</posX>
-      <posY>516</posY>
-      <visible>[facadeview.smallicons | facadeview.largeicons]+!string.equals(#Trakt.Movie.Genres,)</visible>
+      <posY>553</posY>
+      <visible>[facadeview.smallicons | facadeview.largeicons]+!string.equals(#Filmtipset.Movie.Director,)</visible>
       <animation effect="fade" time="250">WindowOpen</animation>
       <animation effect="fade" time="250">WindowClose</animation>
     </control>
     <control Style="InfoValueSmall">
-      <description>Genres</description>
+      <description>Runtime</description>
       <id>0</id>
-      <type>label</type>
-      <label>#Trakt.Movie.Genres</label>
+      <type>fadelabel</type>
+      <label>#Filmtipset.Movie.Length</label>
       <posX>350</posX>
-      <posY>516</posY>
-      <visible>[facadeview.smallicons | facadeview.largeicons]+!string.equals(#Trakt.Movie.Genres,)</visible>
+      <posY>553</posY>
+      <visible>[facadeview.smallicons | facadeview.largeicons]+!string.equals(#Filmtipset.Movie.Length,)</visible>
       <animation effect="fade" time="250">WindowOpen</animation>
       <animation effect="fade" time="250">WindowClose</animation>
     </control>
-    <control>
-      <description>Summary (list)</description>
-      <type>textboxscrollup</type>
+    <control Style="InfoLabel">
+      <description>Org. title</description>
+      <type>fadelabel</type>
+      <label>#Filmtipset.Translation.OrgName.Label</label>
       <id>0</id>
       <posX>118</posX>
-      <posY>635</posY>
+      <posY>589</posY>
       <width>555</width>
-      <height>310</height>
-      <label>#Trakt.Movie.Overview</label>
-      <seperator>---------------------------------------------------------------------------------------------------------</seperator>
-      <onleft>1026</onleft>
-      <onright>1026</onright>
-      <onup>1026</onup>
-      <ondown>1026</ondown>
-      <lineSpacing>0.92</lineSpacing>
-      <visible>[facadeview.smallicons | facadeview.largeicons]+Control.IsVisible(50)</visible>
+      <visible>[facadeview.smallicons | facadeview.largeicons]+!string.equals(#Filmtipset.Movie.OrgName,)</visible>
       <animation effect="fade" time="250">WindowOpen</animation>
       <animation effect="fade" time="250">WindowClose</animation>
     </control>
-    <!--            :: List Scrolling Popup ::            -->
-    <control>
-      <description>listscroller bg</description>
-      <type>image</type>
-      <id>1</id>
-      <posX>210</posX>
-      <posY>542</posY>
-      <width>211</width>
-      <height>211</height>
-      <texture>listscroller_bg.png</texture>
-      <visible>facadeview.list+string.contains(#scrolling.up,yes)|string.contains(#scrolling.down,yes)</visible>
-      <animation effect="fade" time="250">Visible</animation>
-      <animation effect="fade" time="0">Hidden</animation>
+    <control Style="InfoValueSmall">
+      <description>Org. title</description>
+      <id>0</id>
+      <type>fadelabel</type>
+      <label>#Filmtipset.Movie.OrgName</label>
+      <width>555</width>
+      <posX>118</posX>
+      <posY>625</posY>
+      <visible>[facadeview.smallicons | facadeview.largeicons]+!string.equals(#Filmtipset.Movie.OrgName,)</visible>
+      <animation effect="fade" time="250">WindowOpen</animation>
+      <animation effect="fade" time="250">WindowClose</animation>
     </control>
-    <control>
+    <control Style="InfoLabel">
+      <description>Alt title</description>
+      <id>0</id>
       <type>label</type>
-      <id>1</id>
-      <posX>265</posX>
-      <posY>602</posY>
-      <width>96</width>
-      <height>96</height>
-      <font>TitanLight32</font>
-      <textcolor>ff000000</textcolor>
-      <label>#selecteditem.scrolllabel</label>
-      <visible>facadeview.list+string.contains(#scrolling.up,yes)|string.contains(#scrolling.down,yes)</visible>
-      <align>center</align>
-      <valign>middle</valign>
-      <animation effect="fade" time="250">Visible</animation>
-      <animation effect="fade" time="0">Hidden</animation>
+      <label>#Filmtipset.Translation.AltTitle.Label</label>
+      <posX>118</posX>
+      <posY>661</posY>
+      <width>555</width>
+      <visible>[facadeview.smallicons | facadeview.largeicons]+!string.equals(#Filmtipset.Movie.AltTitle,)</visible>
+      <animation effect="fade" time="250">WindowOpen</animation>
+      <animation effect="fade" time="250">WindowClose</animation>
+    </control>
+    <control Style="InfoValueSmall">
+      <description>Alt title</description>
+      <id>0</id>
+      <type>fadelabel</type>
+      <label>#Filmtipset.Movie.AltTitle</label>
+      <posX>118</posX>
+      <posY>697</posY>
+      <width>555</width>
+      <visible>[facadeview.smallicons | facadeview.largeicons]+!string.equals(#Filmtipset.Movie.AltTitle,)</visible>
+      <animation effect="fade" time="250">WindowOpen</animation>
+      <animation effect="fade" time="250">WindowClose</animation>
+    </control>
+    <control Style="InfoLabel">
+      <description>Director</description>
+      <id>0</id>
+      <type>fadelabel</type>
+      <label>#Filmtipset.Translation.Director.Label</label>
+      <posX>118</posX>
+      <posY>733</posY>
+      <width>555</width>
+      <visible>[facadeview.smallicons | facadeview.largeicons]+!string.equals(#Filmtipset.Movie.Director,)</visible>
+      <animation effect="fade" time="250">WindowOpen</animation>
+      <animation effect="fade" time="250">WindowClose</animation>
+    </control>
+    <control Style="InfoValueSmall">
+      <description>Director</description>
+      <id>0</id>
+      <type>fadelabel</type>
+      <label>#Filmtipset.Movie.Director</label>
+      <posX>118</posX>
+      <posY>769</posY>
+      <width>555</width>
+      <visible>[facadeview.smallicons | facadeview.largeicons]+!string.equals(#Filmtipset.Movie.Director,)</visible>
+      <animation effect="fade" time="250">WindowOpen</animation>
+      <animation effect="fade" time="250">WindowClose</animation>
     </control>
   </controls>
 </window>
