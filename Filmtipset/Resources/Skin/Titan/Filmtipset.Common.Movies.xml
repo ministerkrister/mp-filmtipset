@@ -63,14 +63,28 @@
       <animation effect="fade" time="250">WindowOpen</animation>
       <animation effect="fade" time="250">WindowClose</animation>
     </control>
-    <control Style="InfoValueSmall">
-      <description>Member grade</description>
+    <control>
+      <type>imagelist</type>
       <id>0</id>
-      <type>label</type>
-      <label>#Filmtipset.Movie.Grade.Grade</label>
       <posX>798</posX>
       <posY>348</posY>
-      <visible>facadeview.list+!string.equals(#Filmtipset.Movie.Grade.Grade,)</visible>
+      <width>315</width>
+      <height>29</height>
+      <textureWidth>27</textureWidth>
+      <textureHeight>27</textureHeight>
+      <subitems>
+        <subitem>FilmtipsetBadgeGrade5Grey.png</subitem>
+        <subitem>#(iif(eq(#Filmtipset.Movie.Grade.Grade, '2'),'FilmtipsetBadgeGrade1.png','FilmtipsetBadgeGrade1Grey.png'))</subitem>
+        <subitem>#(iif(eq(#Filmtipset.Movie.Grade.Grade, '4'),'FilmtipsetBadgeGrade2.png','FilmtipsetBadgeGrade2Grey.png'))</subitem>
+        <subitem>#(iif(eq(#Filmtipset.Movie.Grade.Grade, '6'),'FilmtipsetBadgeGrade3.png','FilmtipsetBadgeGrade3Grey.png'))</subitem>
+        <subitem>#(iif(eq(#Filmtipset.Movie.Grade.Grade, '8'),'FilmtipsetBadgeGrade4.png','FilmtipsetBadgeGrade4Grey.png'))</subitem>
+        <subitem>FilmtipsetBadgeGrade5.png</subitem>
+      </subitems>
+      <orientation>horizontal</orientation>
+      <align>left</align>
+      <imagesToDraw>5</imagesToDraw>
+      <percentage>#Filmtipset.Movie.Grade.Grade</percentage>
+      <visible>facadeview.list</visible>
       <animation effect="fade" time="250">WindowOpen</animation>
       <animation effect="fade" time="250">WindowClose</animation>
     </control>
@@ -95,8 +109,12 @@
       <textureWidth>27</textureWidth>
       <textureHeight>27</textureHeight>
       <subitems>
-        <subitem>FilmtipsetBadgeGrade4Grey.png</subitem>
-        <subitem>FilmtipsetBadgeGrade4.png</subitem>
+        <subitem>FilmtipsetBadgeGrade5Grey.png</subitem>
+        <subitem>#(iif(eq(#Filmtipset.Movie.FimltipsetGrade.Stars, '2'),'FilmtipsetBadgeGrade1.png','FilmtipsetBadgeGrade1Grey.png'))</subitem>
+        <subitem>#(iif(eq(#Filmtipset.Movie.FimltipsetGrade.Stars, '4'),'FilmtipsetBadgeGrade2.png','FilmtipsetBadgeGrade2Grey.png'))</subitem>
+        <subitem>#(iif(eq(#Filmtipset.Movie.FimltipsetGrade.Stars, '6'),'FilmtipsetBadgeGrade3.png','FilmtipsetBadgeGrade3Grey.png'))</subitem>
+        <subitem>#(iif(eq(#Filmtipset.Movie.FimltipsetGrade.Stars, '8'),'FilmtipsetBadgeGrade4.png','FilmtipsetBadgeGrade4Grey.png'))</subitem>
+        <subitem>FilmtipsetBadgeGrade5.png</subitem>
       </subitems>
       <orientation>horizontal</orientation>
       <align>left</align>
@@ -110,8 +128,8 @@
       <description>Grade count</description>
       <id>0</id>
       <type>label</type>
-      <label>(#Filmtipset.Movie.FimltipsetGrade.Count)</label>
-      <posX>950</posX>
+      <label>(#Filmtipset.Movie.FimltipsetGrade.Count #Filmtipset.Translation.GradeCount.Label)</label>
+      <posX>935</posX>
       <posY>379</posY>
       <visible>facadeview.list+!string.equals(#Filmtipset.Movie.FimltipsetGrade.Count,)</visible>
       <animation effect="fade" time="250">WindowOpen</animation>

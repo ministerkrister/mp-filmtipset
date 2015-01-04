@@ -241,7 +241,7 @@ namespace Filmtipset.GUI
         public static string GradeTypecalculated = "Beräknat betyg";
         public static string GradeTypenone = "Beräknat betyg";
         public static string GradeTypeofficial = "Filmtipset-betyg";
-        public static string GradeCount = "antal betyg";
+        public static string GradeCount = "betyg";
         public static string GradeFilmtipset = "Filmtipset-betyg";
 
 
