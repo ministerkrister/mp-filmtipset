@@ -232,7 +232,7 @@ namespace Filmtipset.GUI
                 {
                     CurrentGenre = g;
                     GUIControl.SetControlLabel(GetID, genreButton.GetID, dlg.SelectedLabelText);
-                    GUICommon.SetProperty("#Filmtipset.CurrentGenre.Label", dlg.SelectedLabelText);
+                    GUICommon.SetProperty("#Filmtipset.CurrentGenre.Label", Translation.GetByName("Genre" + g.ToString()));
 
                     CurrentUser.RecommendationGenre = (int)CurrentGenre;
                     ReloadMovies();
@@ -306,7 +306,7 @@ namespace Filmtipset.GUI
 
         protected void LoadMovies()
         {
-            GUICommon.SetProperty("#Filmtipset.CurrentGenre.Label", GenreItemName(CurrentGenre));
+            GUICommon.SetProperty("#Filmtipset.CurrentGenre.Label", Translation.GetByName("Genre" + CurrentGenre.ToString()));
 
             Gui2UtilConnector.Instance.ExecuteInBackgroundAndCallback(() =>
             {
