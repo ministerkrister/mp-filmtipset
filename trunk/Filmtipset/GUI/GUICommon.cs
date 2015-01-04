@@ -251,6 +251,7 @@ namespace Filmtipset.GUI
         {
             int y = 0;
             int.TryParse(selectedMovie.Year, out y);
+            GUICommon.SetProperty("#Play.Current.OnlineVideos.SiteName", Translation.GetByName("Filmtipset"));
             Trailers.Trailers.SearchForTrailers(new Trailers.Providers.MediaItem() { IMDb = !string.IsNullOrEmpty(selectedMovie.Imdb) ? "tt" + selectedMovie.Imdb : "", Title = string.IsNullOrEmpty(selectedMovie.OrgName) ? selectedMovie.Name : selectedMovie.OrgName, MediaType = Trailers.Providers.MediaItemType.Movie, Year = y, Poster = selectedItem.HasThumbnail ? selectedItem.ThumbnailImage : "" });
         }
         #endregion
