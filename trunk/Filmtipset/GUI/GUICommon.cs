@@ -35,6 +35,7 @@ namespace Filmtipset.GUI
     {
         Main = 742100,
         Recommendations = 742101,
+        Cinema = 742102,
         List = 80087,
         Dvd = 80187,
         Tv = 80287,

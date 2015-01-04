@@ -17,6 +17,7 @@ namespace Filmtipset.API
             seen,
             calculated,
             official,
+            gubbe,
             none
         }
 

@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<dummy>
+  <listY>
+    343 X
+    379 X
+    415 X
+    451 X
+    487 X
+    523 X
+    559 X TOM
+    595 X
+    631 X
+    667 X
+    703 X
+  </listY>
+  <listSameRow>
+    <control Style="InfoLabel">
+      <description>Director</description>
+      <id>0</id>
+      <type>label</type>
+      <label>#Filmtipset.Translation..Label</label>
+      <posX>565</posX>
+      <posY></posY>
+      <visible>facadeview.list+!string.equals(,)</visible>
+      <animation effect="fade" time="250">WindowOpen</animation>
+      <animation effect="fade" time="250">WindowClose</animation>
+    </control>
+    <control Style="InfoValueSmall">
+      <description>Director</description>
+      <id>0</id>
+      <type>fadelabel</type>
+      <label></label>
+      <posX>798</posX>
+      <posY></posY>
+      <visible>facadeview.list+!string.equals(,)</visible>
+      <animation effect="fade" time="250">WindowOpen</animation>
+      <animation effect="fade" time="250">WindowClose</animation>
+    </control>
+  </listSameRow>
+  <listSameCol>
+    <control Style="InfoLabel">
+      <description>Director</description>
+      <id>0</id>
+      <type>label</type>
+      <label>#Filmtipset.Translation..Label</label>
+      <posX>565</posX>
+      <posY></posY>
+      <width>600</width>
+      <visible>facadeview.list+!string.equals(,)</visible>
+      <animation effect="fade" time="250">WindowOpen</animation>
+      <animation effect="fade" time="250">WindowClose</animation>
+    </control>
+    <control Style="InfoValueSmall">
+      <description>Director</description>
+      <id>0</id>
+      <type>fadelabel</type>
+      <label></label>
+      <posX>565</posX>
+      <posY></posY>
+      <width>600</width>
+      <visible>facadeview.list+!string.equals(,)</visible>
+      <animation effect="fade" time="250">WindowOpen</animation>
+      <animation effect="fade" time="250">WindowClose</animation>
+    </control>
+  </listSameCol>
+</dummy>

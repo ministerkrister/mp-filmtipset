@@ -279,6 +279,9 @@ namespace Filmtipset
                 case (3):
                     GUIWindowManager.ActivateWindow((int)FilmtipsetGUIWindows.Recommendations);
                     break;
+                case (4):
+                    GUIWindowManager.ActivateWindow((int)FilmtipsetGUIWindows.Cinema);
+                    break;
                 default:
                     break;
             }

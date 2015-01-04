@@ -201,7 +201,11 @@ namespace Filmtipset.GUI
         /// if that also fails it will use the hardcoded strings as a last resort.
         /// </summary>
 
+        // A
         public static string AltTitle = "Alternativa titlar";
+
+        // C
+        public static string Cinema = "På bio";
         // D
         public static string Director = "Regisör"; 
         // F
@@ -243,6 +247,7 @@ namespace Filmtipset.GUI
         public static string GradeTypeseen = "Betygsatt";
         public static string GradeTypecalculated = "Beräknat betyg";
         public static string GradeTypenone = "Beräknat betyg";
+        public static string GradeTypegubbe = "Filmtipset-betyg";
         public static string GradeTypeofficial = "Filmtipset-betyg";
         public static string GradeCount = "betyg";
         public static string GradeFilmtipset = "Filmtipset-betyg";
