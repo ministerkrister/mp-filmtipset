@@ -193,7 +193,7 @@ namespace Filmtipset.GUI
                 int.TryParse(movie.Grade.Value, out v);
 
                 SetProperty("#Filmtipset.Movie.Grade.Type", GUI.Translation.GetByName("GradeType" + movie.Grade.Type));
-                SetProperty("#Filmtipset.Movie.Grade.Grade", v.ToString());
+                SetProperty("#Filmtipset.Movie.Grade.Grade", (v * 2).ToString());
             }
             SetProperty("#Filmtipset.Movie.Id", movie.Id.ToString());
             SetProperty("#Filmtipset.Movie.Imdb", "tt" + movie.Imdb);
