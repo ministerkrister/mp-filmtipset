@@ -171,14 +171,14 @@
           <width>608</width>
           <textXOff>15</textXOff>
           <textXOff2>6500</textXOff2>
-          <PinIconWidth>50</PinIconWidth>
-          <PinIconHeight>50</PinIconHeight>
+          <PinIconWidth>45</PinIconWidth>
+          <PinIconHeight>45</PinIconHeight>
           <PinIconXOff>623</PinIconXOff>
-          <PinIconYOff>4</PinIconYOff>
-          <itemWidth>50</itemWidth>
-          <itemHeight>50</itemHeight>
+          <PinIconYOff>3</PinIconYOff>
+          <itemWidth>45</itemWidth>
+          <itemHeight>45</itemHeight>
           <IconXOff>15</IconXOff>
-          <IconYOff>2</IconYOff>
+          <IconYOff>4</IconYOff>
           <textureHeight>55</textureHeight>
           <textureFocus>listcontrol_item_selected.png</textureFocus>
           <textureNoFocus>-</textureNoFocus>
