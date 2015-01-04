@@ -141,14 +141,14 @@ namespace Filmtipset.GUI
                 case ((int)ContextMenuItem.TvWish):
                     if (ExternalPlugins.IsTvWishListMPAvailableAndEnabled)
                     {
-                     //   GUICommon.MakeTvWish(selectedMovie);
+                        GUICommon.MakeTvWish(selectedMovie);
                     }
                     break;
                 case ((int)ContextMenuItem.OnlineVideosTitle):
-                   // GUICommon.SearchOnlineVideos(selectedMovie.Name);
+                    GUICommon.SearchOnlineVideos(selectedMovie.Name);
                     break;
                 case ((int)ContextMenuItem.OnlineVideosOrgTitle):
-                  //  GUICommon.SearchOnlineVideos(selectedMovie.OrgName);
+                    GUICommon.SearchOnlineVideos(selectedMovie.OrgName);
                     break;
 
                 default:

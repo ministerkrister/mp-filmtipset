@@ -110,6 +110,7 @@
     <Compile Include="Models\FilmtipsetUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="FilmtipsetTranslation.cs" />
+    <Compile Include="TvWishList\TvWishes.cs" />
     <Compile Include="Util\Utils.cs" />
   </ItemGroup>
   <ItemGroup>

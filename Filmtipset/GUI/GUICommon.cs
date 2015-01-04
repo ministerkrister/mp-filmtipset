@@ -1,5 +1,6 @@
 ﻿using Filmtipset.API;
 using Filmtipset.Models;
+using Filmtipset.TvWishList;
 using Filmtipset.Util;
 using MediaPortal.GUI.Library;
 using System;
@@ -244,6 +245,20 @@ namespace Filmtipset.GUI
 
         #endregion
 
+        #region rating
+
+
+        internal static void DoRating(Movie selectedMovie)
+        {
+            /*
+            GUIRatingDialog itemRating = (GUIRatingDialog)GUIWindowManager.GetWindow(800815);
+            itemRating.SetHeading(selectedMovie.Name);
+            itemRating.SetRating("Sätt ditt betyg då!! ");
+            itemRating.DoModal(GUIWindowManager.ActiveWindow);*/
+        }
+
+        #endregion
+
         #region external plugin dll calls,
 
         //do not call this method if you don't check if Trailers plugin dll exsists!!
@@ -254,8 +269,50 @@ namespace Filmtipset.GUI
             GUICommon.SetProperty("#Play.Current.OnlineVideos.SiteName", Translation.GetByName("Filmtipset"));
             Trailers.Trailers.SearchForTrailers(new Trailers.Providers.MediaItem() { IMDb = !string.IsNullOrEmpty(selectedMovie.Imdb) ? "tt" + selectedMovie.Imdb : "", Title = string.IsNullOrEmpty(selectedMovie.OrgName) ? selectedMovie.Name : selectedMovie.OrgName, MediaType = Trailers.Providers.MediaItemType.Movie, Year = y, Poster = selectedItem.HasThumbnail ? selectedItem.ThumbnailImage : "" });
         }
+
+        internal static void MakeTvWish(Movie selectedMovie)
+        {
+            if (Gui2UtilConnector.Instance.IsBusy) return;
+
+            Gui2UtilConnector.Instance.ExecuteInBackgroundAndCallback(() =>
+            {
+                TvWishes wishes = new TvWishes();
+                return wishes.MakeWish(selectedMovie);
+            },
+            delegate(bool success, object result)
+            {
+                if (success)
+                {
+                    switch ((int)result)
+                    {
+                        case ((int)TvWishesCodes.ok):
+                            GUIUtils.ShowNotifyDialog("Filmtipset", "TvWish tillagd"); //todo
+                            break;
+                        case ((int)TvWishesCodes.timeout):
+                            GUIUtils.ShowNotifyDialog("Filmtipset", "TvWish ej tillagd, det tog för lång tid");//todo
+                            break;
+                        case ((int)TvWishesCodes.error):
+                        default:
+                            GUIUtils.ShowNotifyDialog("Filmtipset", "Fel! TvWish ej tillagd");//todo
+                            break;
+                    }
+                }
+                else
+                    GUIUtils.ShowNotifyDialog("Filmtipset", "Fel! TvWish ej tillagd");//todo
+
+            }, "Making a wish", true); //TODO Translate
+        }
+
+        internal static void SearchOnlineVideos(string searchParam)
+        {
+            string loadingParam = string.Format("site:{0}|search:{1}|return:Locked", "Netflix", searchParam);
+            GUIWindowManager.ActivateWindow((int)ExternalPluginWindows.OnlineVideos, loadingParam);
+        }
+
         #endregion
     }
+
+
     internal sealed class ImageDownloader
     {
 
