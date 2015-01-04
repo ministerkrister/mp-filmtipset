@@ -190,6 +190,8 @@ namespace Filmtipset.GUI
             //First load the user
             CurrentUser = FilmtipsetSettings.Accounts.FirstOrDefault(ac => ac.Id == FilmtipsetSettings.CurrentAccount.Id) ?? Helpers.GetDefaultUser();
             GUIControl.SetControlLabel(GetID, memberButton.GetID, GUICommon.GetAccountTranslation(CurrentUser));
+            GUICommon.SetProperty("#Filmtipset.User.Name", CurrentUser.Name);
+
 
             // load last layout
             CurrentLayout = (Layout)CurrentUser.Layout;
@@ -198,11 +200,14 @@ namespace Filmtipset.GUI
 
             CurrentGenre = (FilmtipsetAPIGenre)CurrentUser.RecommendationGenre;
             GUIControl.SetControlLabel(GetID, genreButton.GetID, GenreItemName(CurrentGenre));
+            GUICommon.SetProperty("#Filmtipset.CurrentGenre.Label", Translation.GetByName("Genre" + CurrentGenre.ToString()));
+
         }
 
         protected void ClearProperties()
         {
             GUICommon.SetProperty("#Filmtipset.CurrentGenre.Label", " ");
+            GUICommon.SetProperty("#Filmtipset.User.Name", " ");
             GUICommon.ClearMovieProperties();
         }
 
@@ -232,8 +237,6 @@ namespace Filmtipset.GUI
                 {
                     CurrentGenre = g;
                     GUIControl.SetControlLabel(GetID, genreButton.GetID, dlg.SelectedLabelText);
-                    GUICommon.SetProperty("#Filmtipset.CurrentGenre.Label", Translation.GetByName("Genre" + g.ToString()));
-
                     CurrentUser.RecommendationGenre = (int)CurrentGenre;
                     ReloadMovies();
                 }
@@ -307,7 +310,7 @@ namespace Filmtipset.GUI
         protected void LoadMovies()
         {
             GUICommon.SetProperty("#Filmtipset.CurrentGenre.Label", Translation.GetByName("Genre" + CurrentGenre.ToString()));
-
+            GUICommon.SetProperty("#Filmtipset.User.Name", CurrentUser.Name);
             Gui2UtilConnector.Instance.ExecuteInBackgroundAndCallback(() =>
             {
                 return Movies;
