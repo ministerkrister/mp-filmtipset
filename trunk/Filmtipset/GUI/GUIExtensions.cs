@@ -135,7 +135,7 @@ namespace Filmtipset.GUI
                 case ((int)ContextMenuItem.Trailers):
                     if (ExternalPlugins.IsTrailersAvailableAndEnabled)
                     {
-                    //    GUICommon.CallTrailersPlugin(selectedMovie, self);
+                        GUICommon.CallTrailersPlugin(selectedMovie, self);
                     }
                     break;
                 case ((int)ContextMenuItem.TvWish):
