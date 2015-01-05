@@ -298,10 +298,10 @@ namespace Filmtipset.GUI
                     switch ((int)result)
                     {
                         case ((int)TvWishesCodes.ok):
-                            GUIUtils.ShowNotifyDialog("Filmtipset", "TvWish tillagd"); //todo
+                            GUIUtils.ShowNotifyDialog(Translation.GetByName("Filmtipset"), Translation.GetByName("TvWishAdded"));
                             break;
                         case ((int)TvWishesCodes.timeout):
-                            GUIUtils.ShowNotifyDialog("Filmtipset", "TvWish ej tillagd, det tog för lång tid");//todo
+                            GUIUtils.ShowNotifyDialog(Translation.GetByName("Filmtipset"), Translation.GetByName("TvWishTimeout"));
                             break;
                         case ((int)TvWishesCodes.error):
                         default:

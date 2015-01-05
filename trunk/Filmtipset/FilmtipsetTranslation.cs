@@ -251,7 +251,9 @@ namespace Filmtipset.GUI
         public static string GradeTypeofficial = "Filmtipset-betyg";
         public static string GradeCount = "betyg";
         public static string GradeFilmtipset = "Filmtipset-betyg";
-
+        public static string GradeChangeHeading = "Ändra betyg";
+        public static string GradeSetHeading = "Betygsätt";
+        
 
 
         //L
@@ -289,6 +291,8 @@ namespace Filmtipset.GUI
 
         //T
         public static string Trailers = "Trailers";
+        public static string TvWishAdded = "TvWish tillagd";
+        public static string TvWishTimeout = "TvWish ej tillagd (timeout)";
 
         //Y
         public static string Year = "År";
