@@ -143,9 +143,12 @@ namespace Filmtipset.GUI
                     base.OnMessage(message);
 
                     // readjust rating and default control focus
-                    int defaultControlId = 100 + rating;
-                    GUIMessage msg = new GUIMessage(GUIMessage.MessageType.GUI_MSG_SETFOCUS, GetID, 0, defaultControlId, 0, 0, null);
-                    OnMessage(msg);
+                    if (rating > 0 && rating < 6)
+                    {
+                        int defaultControlId = 100 + rating;
+                        GUIMessage msg = new GUIMessage(GUIMessage.MessageType.GUI_MSG_SETFOCUS, GetID, 0, defaultControlId, 0, 0, null);
+                        OnMessage(msg);
+                    }
 
                     IsSubmitted = false;
                     UpdateRating();
