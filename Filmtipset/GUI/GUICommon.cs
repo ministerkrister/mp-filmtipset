@@ -202,7 +202,7 @@ namespace Filmtipset.GUI
                 v = v * 2;
                 SetProperty("#Filmtipset.Movie.FimltipsetGrade.Stars", v.ToString());
             }
-            if (movie.FimltipsetGrade != null)
+            if (movie.Grade != null)
             {
                 int v = 0;
                 int.TryParse(movie.Grade.Value, out v);
@@ -250,12 +250,22 @@ namespace Filmtipset.GUI
 
         internal static void DoRating(Movie selectedMovie)
         {
+            int v = 0;
+            bool isSeen = false;
+            if (selectedMovie.Grade != null)
+            {
+                int.TryParse(selectedMovie.Grade.Value, out v);
+                isSeen = (selectedMovie.Grade.Type ?? string.Empty).Trim() == Filmtipset.API.GradeType.seen.ToString().Trim();
+                SetProperty("#Filmtipset.Movie.Grade.Grade", (v * 2).ToString());
+            }
+
             GUIRatingDialog itemRating = (GUIRatingDialog)GUIWindowManager.GetWindow(742199);
-            itemRating.Rated = 4;
+            itemRating.RateValue = v;
             itemRating.IsSubmitted = false;
-            itemRating.SetHeading("Betygsätt");
+            itemRating.SetHeading(isSeen ? Translation.GetByName("GradeChangeHeading") : Translation.GetByName("GradeSetHeading")); //todo
+            itemRating.IsSeen = isSeen;
             itemRating.SetMovieName(selectedMovie.Name);
-            itemRating.SetRating("Sätt ditt betyg då!!");
+            itemRating.SetRating("");
             itemRating.DoModal(GUIWindowManager.ActiveWindow);
         }
 

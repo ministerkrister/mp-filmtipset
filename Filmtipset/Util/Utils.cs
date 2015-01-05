@@ -49,7 +49,7 @@ namespace Filmtipset.Util
     {
         public static Account GetDefaultUser()
         {
-            return new Account() { ApiKey = "", Id = 0, Name = Translation.MemberNoMember, Layout = (int)Filmtipset.GUI.Layout.List, ListId = (int)Filmtipset.API.FilmtipsetAPIListType.bio, ListsId = "418"/*Startpaket 1*/, RecommendationGenre = (int)Filmtipset.API.FilmtipsetAPIGenre.GenerellaTips, grade = 5 }; //Todo translation
+            return new Account() { ApiKey = "", Id = 0, Name = Translation.GetByName("MemberNoMember"), Layout = (int)Filmtipset.GUI.Layout.List, ListId = (int)Filmtipset.API.FilmtipsetAPIListType.bio, ListsId = "418"/*Startpaket 1*/, RecommendationGenre = (int)Filmtipset.API.FilmtipsetAPIGenre.GenerellaTips, grade = 5 }; //Todo translation
         }
     }
 }

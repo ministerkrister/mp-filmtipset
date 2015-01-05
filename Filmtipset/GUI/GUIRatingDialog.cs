@@ -44,7 +44,9 @@ namespace Filmtipset.GUI
 
         #region Public Properties
 
-        public int Rated { get; set; }
+        public int RateValue { get; set; }
+        private int OriginalRateValue { get; set; }
+        public bool IsSeen { get; set; }
         public bool IsSubmitted { get; set; }
 
         #endregion
@@ -73,32 +75,32 @@ namespace Filmtipset.GUI
             switch (action.wID)
             {
                 case Action.ActionType.REMOTE_1:
-                        Rated = 1;
+                        RateValue = 1;
                     UpdateRating();
                     break;
 
                 case Action.ActionType.REMOTE_2:
-                        Rated = 2;
+                        RateValue = 2;
                     UpdateRating();
                     break;
 
                 case Action.ActionType.REMOTE_3:
-                        Rated = 3;
+                        RateValue = 3;
                     UpdateRating();
                     break;
 
                 case Action.ActionType.REMOTE_4:
-                        Rated = 4;
+                        RateValue = 4;
                     UpdateRating();
                     break;
 
                 case Action.ActionType.REMOTE_5:
-                        Rated = 5;
+                        RateValue = 5;
                     UpdateRating();
                     break;
 
                 case Action.ActionType.REMOTE_0:
-                        Rated = 0;
+                        RateValue = 0;
                     UpdateRating();
                     break;
 
@@ -109,7 +111,7 @@ namespace Filmtipset.GUI
                         int key = action.m_key.KeyChar;
                         if (key >= '0' && key <= '5')
                         {
-                            Rated = 0;
+                            RateValue = 0;
                             UpdateRating();
                         }
                     }
@@ -138,14 +140,14 @@ namespace Filmtipset.GUI
             {
                 case GUIMessage.MessageType.GUI_MSG_WINDOW_INIT:
                     // store old rating so default control in skin does override
-                    int rating = Rated;
+                    OriginalRateValue = RateValue;
 
                     base.OnMessage(message);
 
                     // readjust rating and default control focus
-                    if (rating > 0 && rating < 6)
+                    if (OriginalRateValue > 0 && OriginalRateValue < 6)
                     {
-                        int defaultControlId = 100 + rating;
+                        int defaultControlId = 100 + OriginalRateValue;
                         GUIMessage msg = new GUIMessage(GUIMessage.MessageType.GUI_MSG_SETFOCUS, GetID, 0, defaultControlId, 0, 0, null);
                         OnMessage(msg);
                     }
@@ -157,14 +159,14 @@ namespace Filmtipset.GUI
                 case GUIMessage.MessageType.GUI_MSG_SETFOCUS:
                     if (btnGrade0 != null && message.TargetControlId == btnGrade0.GetID)
                     {
-                        Rated = 0;
+                        RateValue = 0;
                         UpdateRating();
                         break;
                     }
 
                     if (message.TargetControlId < 101 || message.TargetControlId > 105)
                         break;
-                    Rated = message.TargetControlId - 100;
+                    RateValue = message.TargetControlId - 100;
                     UpdateRating();
                     break;
             
@@ -213,19 +215,19 @@ namespace Filmtipset.GUI
 
         private void UpdateRating()
         {
-            btnGrade0.Selected = (Rated == 0);
-            btnGrade0.Focus = (Rated == 0);
-            btnGrade1.Selected = (Rated == 1);
-            btnGrade1.Focus = (Rated == 1);
-            btnGrade2.Selected = (Rated == 2);
-            btnGrade2.Focus = (Rated == 2);
-            btnGrade3.Selected = (Rated == 3);
-            btnGrade3.Focus = (Rated == 3);
-            btnGrade4.Selected = (Rated == 4);
-            btnGrade4.Focus = (Rated == 4);
-            btnGrade5.Selected = (Rated == 5);
-            btnGrade5.Focus = (Rated == 5);
-            lblRating.Label = "Sätt betyg " + Rated;
+            btnGrade0.Selected = (RateValue == 0);
+            btnGrade0.Focus = (RateValue == 0);
+            btnGrade1.Selected = (RateValue == 1);
+            btnGrade1.Focus = (RateValue == 1);
+            btnGrade2.Selected = (RateValue == 2);
+            btnGrade2.Focus = (RateValue == 2);
+            btnGrade3.Selected = (RateValue == 3);
+            btnGrade3.Focus = (RateValue == 3);
+            btnGrade4.Selected = (RateValue == 4);
+            btnGrade4.Focus = (RateValue == 4);
+            btnGrade5.Selected = (RateValue == 5);
+            btnGrade5.Focus = (RateValue == 5);
+            lblRating.Label = "Sätt betyg " + RateValue; //todo i metod kanske....
         }
 
     }
