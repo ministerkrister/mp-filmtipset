@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<window>
+  <id>742199</id>
+  <defaultcontrol>101</defaultcontrol>
+  <allowoverlay>yes</allowoverlay>
+  <controls>
+    <import>common.dialog.xml</import>
+    <control>
+      <description>0</description>
+      <type>button</type>
+      <id>100</id>
+      <posX>-1000</posX>
+      <posY>680</posY>
+      <width>50</width>
+      <height>50</height>
+      <onup>101</onup>
+      <textureFocus>FilmtipsetBadgeGrade0.png</textureFocus>
+      <textureNoFocus>FilmtipsetBadgeGrade0Grey.png</textureNoFocus>
+    </control>
+    <control>
+      <description>1</description>
+      <type>button</type>
+      <id>101</id>
+      <posX>810</posX>
+      <posY>680</posY>
+      <width>50</width>
+      <height>50</height>
+      <textureFocus>FilmtipsetBadgeGrade1.png</textureFocus>
+      <textureNoFocus>FilmtipsetBadgeGrade1Grey.png</textureNoFocus>
+      <animation effect="fade" time="250">WindowOpen</animation>
+      <animation effect="fade" time="0">WindowClose</animation>
+      <animation effect="slide" start="0,200" end="0,0" tween="quadratic" easing="in" time="150" delay="0">WindowOpen</animation>
+    </control>
+    <control>
+      <description>2</description>
+      <type>button</type>
+      <id>102</id>
+      <posX>870</posX>
+      <posY>680</posY>
+      <width>50</width>
+      <height>50</height>
+      <textureFocus>FilmtipsetBadgeGrade2.png</textureFocus>
+      <textureNoFocus>FilmtipsetBadgeGrade2Grey.png</textureNoFocus>
+      <animation effect="fade" time="250">WindowOpen</animation>
+      <animation effect="fade" time="0">WindowClose</animation>
+      <animation effect="slide" start="0,200" end="0,0" tween="quadratic" easing="in" time="150" delay="0">WindowOpen</animation>
+    </control>
+    <control>
+      <description>3</description>
+      <type>button</type>
+      <id>103</id>
+      <posX>930</posX>
+      <posY>680</posY>
+      <width>50</width>
+      <height>50</height>
+      <textureFocus>FilmtipsetBadgeGrade3.png</textureFocus>
+      <textureNoFocus>FilmtipsetBadgeGrade3Grey.png</textureNoFocus>
+      <animation effect="fade" time="250">WindowOpen</animation>
+      <animation effect="fade" time="0">WindowClose</animation>
+      <animation effect="slide" start="0,200" end="0,0" tween="quadratic" easing="in" time="150" delay="0">WindowOpen</animation>
+    </control>
+    <control>
+      <description>4</description>
+      <type>button</type>
+      <id>104</id>
+      <posX>990</posX>
+      <posY>680</posY>
+      <width>50</width>
+      <height>50</height>
+      <textureFocus>FilmtipsetBadgeGrade4.png</textureFocus>
+      <textureNoFocus>FilmtipsetBadgeGrade4Grey.png</textureNoFocus>
+      <animation effect="fade" time="250">WindowOpen</animation>
+      <animation effect="fade" time="0">WindowClose</animation>
+      <animation effect="slide" start="0,200" end="0,0" tween="quadratic" easing="in" time="150" delay="0">WindowOpen</animation>
+    </control>
+    <control>
+      <description>5</description>
+      <type>button</type>
+      <id>105</id>
+      <posX>1050</posX>
+      <posY>680</posY>
+      <width>50</width>
+      <height>50</height>
+      <textureFocus>FilmtipsetBadgeGrade5.png</textureFocus>
+      <textureNoFocus>FilmtipsetBadgeGrade5Grey.png</textureNoFocus>
+      <animation effect="fade" time="250">WindowOpen</animation>
+      <animation effect="fade" time="0">WindowClose</animation>
+      <animation effect="slide" start="0,200" end="0,0" tween="quadratic" easing="in" time="150" delay="0">WindowOpen</animation>
+    </control>
+    <control>
+      <description>Rating Description</description>
+      <type>label</type>
+      <id>10</id>
+      <posX>575</posX>
+      <posY>811</posY>
+      <width>768</width>
+      <font>fontB12</font>
+      <textcolor>ff393939</textcolor>
+      <align>center</align>
+      <animation effect="fade" time="250">WindowOpen</animation>
+      <animation effect="slide" start="0,150" end="0,0" tween="quadratic" easing="in" time="200" delay="0">WindowOpen</animation>
+      <animation effect="fade" time="0">WindowClose</animation>
+    </control>
+  </controls>
+</window>

@@ -130,7 +130,7 @@ namespace Filmtipset.GUI
             switch (dlg.SelectedId)
             {
                 case ((int)ContextMenuItem.Rate):
-                  //  GUICommon.DoRating(selectedMovie);
+                    GUICommon.DoRating(selectedMovie);
                     break;
                 case ((int)ContextMenuItem.Trailers):
                     if (ExternalPlugins.IsTrailersAvailableAndEnabled)

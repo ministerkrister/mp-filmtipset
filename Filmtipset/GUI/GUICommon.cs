@@ -250,11 +250,13 @@ namespace Filmtipset.GUI
 
         internal static void DoRating(Movie selectedMovie)
         {
-            /*
-            GUIRatingDialog itemRating = (GUIRatingDialog)GUIWindowManager.GetWindow(800815);
-            itemRating.SetHeading(selectedMovie.Name);
-            itemRating.SetRating("Sätt ditt betyg då!! ");
-            itemRating.DoModal(GUIWindowManager.ActiveWindow);*/
+            GUIRatingDialog itemRating = (GUIRatingDialog)GUIWindowManager.GetWindow(742199);
+            itemRating.Rated = 4;
+            itemRating.IsSubmitted = false;
+            itemRating.SetHeading("Betygsätt");
+            itemRating.SetMovieName(selectedMovie.Name);
+            itemRating.SetRating("Sätt ditt betyg då!!");
+            itemRating.DoModal(GUIWindowManager.ActiveWindow);
         }
 
         #endregion
