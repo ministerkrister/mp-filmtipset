@@ -3,7 +3,7 @@
   <id>742102</id>
   <defaultcontrol>50</defaultcontrol>
   <allowoverlay>no</allowoverlay>
-  <define>#header.label:#Filmtipset.Translation.Cinema.Label</define>
+  <!--define>#header.label:#Filmtipset.Translation.Cinema.Label</define-->
   <controls>
 
     <control>

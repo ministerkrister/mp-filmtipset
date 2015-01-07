@@ -111,6 +111,7 @@ namespace Filmtipset.API
         }
 
         #endregion
+
         #region Recomendations
 
         internal MoviesData GetRecommendedMovies(FilmtipsetAPIGenre genre, int usernr = 0)
@@ -230,6 +231,28 @@ namespace Filmtipset.API
                 return md;
             }
         }
+        #endregion
+
+        #region grade
+
+        internal IEnumerable<MovieWrapper> RateMovie(int movieId, int grade)
+        {
+            int cu = FilmtipsetSettings.CurrentAccount.Id;
+
+            NameValueCollection pms = new NameValueCollection();
+            pms.Add("action", FilmtipsetAPIAction.grade.ToString());
+            pms.Add("id", movieId.ToString());
+            if(grade > 0)
+                pms.Add("grade", grade.ToString());
+
+            string listJson = this.GetWebData(pms);
+
+            IEnumerable<Response<IEnumerable<MovieWrapper>>> response = listJson.FromJSONArray<Response<IEnumerable<MovieWrapper>>>();
+            IEnumerable<MovieWrapper> movieWraps = response.First().Data;
+
+            return movieWraps;
+        }
+
         #endregion
     }
 }

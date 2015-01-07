@@ -172,9 +172,9 @@ namespace Filmtipset.GUI
         protected override void OnShowContextMenu()
         {
             if (Gui2UtilConnector.Instance.IsBusy) return;
-            GUIListItem selectedItem = this.Facade.SelectedListItem;
+            GUIFilmtipsetListItem selectedItem = this.Facade.SelectedListItem as GUIFilmtipsetListItem;
             if (selectedItem == null) return;
-            selectedItem.ShowContextMenu(CurrentUser);
+            //selectedItem.ShowContextMenu(CurrentUser, (int)FilmtipsetGUIWindows.Recommendations, selectedItem.ItemId);
             base.OnShowContextMenu();
         }
 
@@ -269,7 +269,7 @@ namespace Filmtipset.GUI
 
             foreach (var movie in movieList)
             {
-                GUIFilmtipsetRecommendetionItem item = new GUIFilmtipsetRecommendetionItem(movie.Name, GetID);
+                GUIFilmtipsetListItem item = new GUIFilmtipsetListItem(movie.Name, GetID);
 
                 int grade = 0;
                 int.TryParse(movie.Grade.Value, out grade);

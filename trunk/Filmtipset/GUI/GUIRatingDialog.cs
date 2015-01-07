@@ -227,7 +227,26 @@ namespace Filmtipset.GUI
             btnGrade4.Focus = (RateValue == 4);
             btnGrade5.Selected = (RateValue == 5);
             btnGrade5.Focus = (RateValue == 5);
-            lblRating.Label = "Sätt betyg " + RateValue; //todo i metod kanske....
+            generateLabel();
+        }
+        private void generateLabel()
+        {
+            if (this.IsSeen)
+            {
+                if (RateValue == 0)
+                    lblRating.Label = "Ta bort satt betyg";
+                else if (RateValue == OriginalRateValue)
+                    lblRating.Label = "Behåll betyg " + RateValue;
+                else
+                    lblRating.Label = "Ändra betyg till " + RateValue;
+            }
+            else
+            {
+                if (RateValue == 0)
+                    lblRating.Label = "Sätt inget betyg";
+                else
+                    lblRating.Label = "Sätt betyg " + RateValue;
+            }
         }
 
     }

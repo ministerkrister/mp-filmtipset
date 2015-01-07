@@ -205,9 +205,25 @@ namespace Filmtipset.GUI
         public static string AltTitle = "Alternativa titlar";
 
         // C
-        public static string Cinema = "På bio";
+        public static string Channelaxess = "Axess TV";
+        public static string Channelkanal5 = "Kanal 5";
+        public static string Channelkanal9 = "Kanal 9";
+        public static string Channelkunskapskanalen = "Kunskapskanalen";
+        public static string Channelsjuan = "Sjuan";
+        public static string Channelsvt1 = "SVT1";
+        public static string Channelsvt2 = "SVT2";
+        public static string Channelsvt24 = "SVT24";
+        public static string Channeltnt7 = "TNT";
+        public static string Channeltv10 = "TV10";
+        public static string Channeltv11 = "Kanal 11";
+        public static string Channeltv12 = "TV12";
+        public static string Channeltv3 = "TV3";
+        public static string Channeltv4 = "TV4";
+        public static string Channeltv6 = "TV6";
+        public static string Channeltv8 = "TV8";
+
         // D
-        public static string Director = "Regisör"; 
+        public static string Director = "Regisör";
         // F
         public static string Filmtipset = "Filmtipset";
         // G
@@ -284,6 +300,11 @@ namespace Filmtipset.GUI
         public static string OnlineVideosSearch = "Sök i OnlineVideos";
         public static string OnlineVideosOrgName = "Sök i OnlineVideos med orginaltitel";
         public static string OrgName = "Orginaltitel";
+
+        public static string OnCinema = "På bio";
+        public static string OnDvd = "På video";
+        public static string OnTv = "På TV";
+
         //R
         public static string recommendations = "Rekommendationer";
         public static string RecommendedMovies = "Rekommendationer";
@@ -293,6 +314,8 @@ namespace Filmtipset.GUI
         public static string Trailers = "Trailers";
         public static string TvWishAdded = "TvWish tillagd";
         public static string TvWishTimeout = "TvWish ej tillagd (timeout)";
+        public static string TvChannel = "TV-kanal";
+        public static string TvTime = "Sändningstid";
 
         //Y
         public static string Year = "År";
