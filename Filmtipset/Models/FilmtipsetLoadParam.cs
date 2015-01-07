@@ -9,8 +9,8 @@ namespace Filmtipset.Models
     [DataContract]
     internal class FilmtipsetLoadParam
     {
-        [DataMember(Name = "action")]
-        public int Action { get; set; }
+        [DataMember(Name = "title")]
+        public string Title { get; set; }
 
         [DataMember(Name = "id")]
         public string Id { get; set; }

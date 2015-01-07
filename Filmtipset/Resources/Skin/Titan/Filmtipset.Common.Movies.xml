@@ -181,12 +181,36 @@
       <animation effect="fade" time="250">WindowClose</animation>
     </control>
     <control Style="InfoLabel">
+      <description>Director</description>
+      <id>0</id>
+      <type>fadelabel</type>
+      <label>#Filmtipset.Translation.Director.Label</label>
+      <posX>565</posX>
+      <posY>487</posY>
+      <width>555</width>
+      <visible>facadeview.list+!string.equals(#Filmtipset.Movie.Director,)</visible>
+      <animation effect="fade" time="250">WindowOpen</animation>
+      <animation effect="fade" time="250">WindowClose</animation>
+    </control>
+    <control Style="InfoValueSmall">
+      <description>Director</description>
+      <id>0</id>
+      <type>fadelabel</type>
+      <label>#Filmtipset.Movie.Director</label>
+      <posX>565</posX>
+      <posY>523</posY>
+      <width>555</width>
+      <visible>facadeview.list+!string.equals(#Filmtipset.Movie.Director,)</visible>
+      <animation effect="fade" time="250">WindowOpen</animation>
+      <animation effect="fade" time="250">WindowClose</animation>
+    </control>
+    <control Style="InfoLabel">
       <description>Org. title</description>
       <type>fadelabel</type>
       <label>#Filmtipset.Translation.OrgName.Label</label>
       <id>0</id>
       <posX>565</posX>
-      <posY>487</posY>
+      <posY>559</posY>
       <width>555</width>
       <visible>facadeview.list+!string.equals(#Filmtipset.Movie.OrgName,)</visible>
       <animation effect="fade" time="250">WindowOpen</animation>
@@ -199,7 +223,7 @@
       <label>#Filmtipset.Movie.OrgName</label>
       <width>555</width>
       <posX>565</posX>
-      <posY>523</posY>
+      <posY>595</posY>
       <visible>facadeview.list+!string.equals(#Filmtipset.Movie.OrgName,)</visible>
       <animation effect="fade" time="250">WindowOpen</animation>
       <animation effect="fade" time="250">WindowClose</animation>
@@ -210,7 +234,7 @@
       <type>label</type>
       <label>#Filmtipset.Translation.AltTitle.Label</label>
       <posX>565</posX>
-      <posY>559</posY>
+      <posY>631</posY>
       <width>555</width>
       <visible>facadeview.list+!string.equals(#Filmtipset.Movie.AltTitle,)</visible>
       <animation effect="fade" time="250">WindowOpen</animation>
@@ -222,36 +246,60 @@
       <type>fadelabel</type>
       <label>#Filmtipset.Movie.AltTitle</label>
       <posX>565</posX>
-      <posY>595</posY>
+      <posY>667</posY>
       <width>555</width>
       <visible>facadeview.list+!string.equals(#Filmtipset.Movie.AltTitle,)</visible>
       <animation effect="fade" time="250">WindowOpen</animation>
       <animation effect="fade" time="250">WindowClose</animation>
     </control>
+
+    
     <control Style="InfoLabel">
-      <description>Director</description>
+      <description>Channel label</description>
       <id>0</id>
       <type>fadelabel</type>
-      <label>#Filmtipset.Translation.Director.Label</label>
+      <label>#Filmtipset.Translation.TvChannel.Label</label>
       <posX>565</posX>
-      <posY>631</posY>
-      <width>555</width>
-      <visible>facadeview.list+!string.equals(#Filmtipset.Movie.Director,)</visible>
+      <posY>847</posY>
+      <visible>facadeview.list+!string.equals(#Filmtipset.Movie.Tv.Channel,)</visible>
       <animation effect="fade" time="250">WindowOpen</animation>
       <animation effect="fade" time="250">WindowClose</animation>
     </control>
     <control Style="InfoValueSmall">
-      <description>Director</description>
+      <description>Channel</description>
       <id>0</id>
       <type>fadelabel</type>
-      <label>#Filmtipset.Movie.Director</label>
-      <posX>565</posX>
-      <posY>667</posY>
-      <width>555</width>
-      <visible>facadeview.list+!string.equals(#Filmtipset.Movie.Director,)</visible>
+      <label>#Filmtipset.Movie.Tv.Channel</label>
+      <posX>798</posX>
+      <posY>847</posY>
+      <visible>facadeview.list+!string.equals(#Filmtipset.Movie.Tv.Channel,)</visible>
       <animation effect="fade" time="250">WindowOpen</animation>
       <animation effect="fade" time="250">WindowClose</animation>
     </control>
+
+    <control Style="InfoLabel">
+      <description>Channel label</description>
+      <id>0</id>
+      <type>fadelabel</type>
+      <label>#Filmtipset.Translation.TvTime.Label</label>
+      <posX>565</posX>
+      <posY>883</posY>
+      <visible>facadeview.list+!string.equals(#Filmtipset.Movie.Tv.Time,)</visible>
+      <animation effect="fade" time="250">WindowOpen</animation>
+      <animation effect="fade" time="250">WindowClose</animation>
+    </control>
+    <control Style="InfoValueSmall">
+      <description>Channel</description>
+      <id>0</id>
+      <type>fadelabel</type>
+      <label>#Filmtipset.Movie.Tv.Time</label>
+      <posX>798</posX>
+      <posY>883</posY>
+      <visible>facadeview.list+!string.equals(#Filmtipset.Movie.Tv.Time,)</visible>
+      <animation effect="fade" time="250">WindowOpen</animation>
+      <animation effect="fade" time="250">WindowClose</animation>
+    </control>
+
 
     <!--            :: THUMBVIEW ::            -->
     <control>
@@ -271,30 +319,6 @@
       <animation effect="fade" time="250">WindowOpen</animation>
       <animation effect="fade" time="250">WindowClose</animation>
     </control>
-    <!--
-    <control Style="InfoLabel">
-      <description>#Filmtipset.Movie.AltTitle</description>
-      <type>label</type>
-      <id>0</id>
-      <posX>118</posX>
-      <posY>445</posY>
-      <label>#Filmtipset.Translation.AltTitle.Label</label>
-      <visible>[facadeview.smallicons | facadeview.largeicons]</visible>
-      <animation effect="fade" time="250">WindowOpen</animation>
-      <animation effect="fade" time="250">WindowClose</animation>
-    </control>
-    <control Style="InfoValueWide">
-      <description>#Filmtipset.Movie.AltTitle</description>
-      <type>label</type>
-      <id>0</id>
-      <label>#Filmtipset.Movie.AltTitle</label>
-      <posX>350</posX>
-      <posY>445</posY>
-      <visible>[facadeview.smallicons | facadeview.largeicons]</visible>
-      <animation effect="fade" time="250">WindowOpen</animation>
-      <animation effect="fade" time="250">WindowClose</animation>
-    </control>
-    -->
     <control Style="InfoLabel">
       <description>Member grade label</description>
       <type>label</type>
@@ -422,12 +446,36 @@
       <animation effect="fade" time="250">WindowClose</animation>
     </control>
     <control Style="InfoLabel">
+      <description>Director</description>
+      <id>0</id>
+      <type>fadelabel</type>
+      <label>#Filmtipset.Translation.Director.Label</label>
+      <posX>118</posX>
+      <posY>589</posY>
+      <width>555</width>
+      <visible>[facadeview.smallicons | facadeview.largeicons]+!string.equals(#Filmtipset.Movie.Director,)</visible>
+      <animation effect="fade" time="250">WindowOpen</animation>
+      <animation effect="fade" time="250">WindowClose</animation>
+    </control>
+    <control Style="InfoValueSmall">
+      <description>Director</description>
+      <id>0</id>
+      <type>fadelabel</type>
+      <label>#Filmtipset.Movie.Director</label>
+      <posX>118</posX>
+      <posY>625</posY>
+      <width>555</width>
+      <visible>[facadeview.smallicons | facadeview.largeicons]+!string.equals(#Filmtipset.Movie.Director,)</visible>
+      <animation effect="fade" time="250">WindowOpen</animation>
+      <animation effect="fade" time="250">WindowClose</animation>
+    </control>
+    <control Style="InfoLabel">
       <description>Org. title</description>
       <type>fadelabel</type>
       <label>#Filmtipset.Translation.OrgName.Label</label>
       <id>0</id>
       <posX>118</posX>
-      <posY>589</posY>
+      <posY>661</posY>
       <width>555</width>
       <visible>[facadeview.smallicons | facadeview.largeicons]+!string.equals(#Filmtipset.Movie.OrgName,)</visible>
       <animation effect="fade" time="250">WindowOpen</animation>
@@ -440,7 +488,7 @@
       <label>#Filmtipset.Movie.OrgName</label>
       <width>555</width>
       <posX>118</posX>
-      <posY>625</posY>
+      <posY>697</posY>
       <visible>[facadeview.smallicons | facadeview.largeicons]+!string.equals(#Filmtipset.Movie.OrgName,)</visible>
       <animation effect="fade" time="250">WindowOpen</animation>
       <animation effect="fade" time="250">WindowClose</animation>
@@ -451,7 +499,7 @@
       <type>label</type>
       <label>#Filmtipset.Translation.AltTitle.Label</label>
       <posX>118</posX>
-      <posY>661</posY>
+      <posY>733</posY>
       <width>555</width>
       <visible>[facadeview.smallicons | facadeview.largeicons]+!string.equals(#Filmtipset.Movie.AltTitle,)</visible>
       <animation effect="fade" time="250">WindowOpen</animation>
@@ -463,33 +511,53 @@
       <type>fadelabel</type>
       <label>#Filmtipset.Movie.AltTitle</label>
       <posX>118</posX>
-      <posY>697</posY>
+      <posY>769</posY>
       <width>555</width>
       <visible>[facadeview.smallicons | facadeview.largeicons]+!string.equals(#Filmtipset.Movie.AltTitle,)</visible>
       <animation effect="fade" time="250">WindowOpen</animation>
       <animation effect="fade" time="250">WindowClose</animation>
     </control>
     <control Style="InfoLabel">
-      <description>Director</description>
+      <description>Channel</description>
       <id>0</id>
       <type>fadelabel</type>
-      <label>#Filmtipset.Translation.Director.Label</label>
+      <label>#Filmtipset.Translation.TvChannel.Label</label>
       <posX>118</posX>
-      <posY>733</posY>
-      <width>555</width>
-      <visible>[facadeview.smallicons | facadeview.largeicons]+!string.equals(#Filmtipset.Movie.Director,)</visible>
+      <posY>841</posY>
+      <visible>[facadeview.smallicons | facadeview.largeicons]+!string.equals(#Filmtipset.Movie.Tv.Channel,)</visible>
       <animation effect="fade" time="250">WindowOpen</animation>
       <animation effect="fade" time="250">WindowClose</animation>
     </control>
     <control Style="InfoValueSmall">
-      <description>Director</description>
+      <description>Channel</description>
       <id>0</id>
       <type>fadelabel</type>
-      <label>#Filmtipset.Movie.Director</label>
+      <label>#Filmtipset.Movie.Tv.Channel</label>
+      <posX>350</posX>
+      <posY>841</posY>
+      <visible>[facadeview.smallicons | facadeview.largeicons]+!string.equals(#Filmtipset.Movie.Tv.Channel,)</visible>
+      <animation effect="fade" time="250">WindowOpen</animation>
+      <animation effect="fade" time="250">WindowClose</animation>
+    </control>
+    <control Style="InfoLabel">
+      <description>Channel</description>
+      <id>0</id>
+      <type>fadelabel</type>
+      <label>#Filmtipset.Translation.TvTime.Label</label>
       <posX>118</posX>
-      <posY>769</posY>
-      <width>555</width>
-      <visible>[facadeview.smallicons | facadeview.largeicons]+!string.equals(#Filmtipset.Movie.Director,)</visible>
+      <posY>877</posY>
+      <visible>[facadeview.smallicons | facadeview.largeicons]+!string.equals(#Filmtipset.Movie.Tv.Time,)</visible>
+      <animation effect="fade" time="250">WindowOpen</animation>
+      <animation effect="fade" time="250">WindowClose</animation>
+    </control>
+    <control Style="InfoValueSmall">
+      <description>Channel</description>
+      <id>0</id>
+      <type>fadelabel</type>
+      <label>#Filmtipset.Movie.Tv.Time</label>
+      <posX>350</posX>
+      <posY>877</posY>
+      <visible>[facadeview.smallicons | facadeview.largeicons]+!string.equals(#Filmtipset.Movie.Tv.Time,)</visible>
       <animation effect="fade" time="250">WindowOpen</animation>
       <animation effect="fade" time="250">WindowClose</animation>
     </control>

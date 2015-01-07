@@ -96,6 +96,7 @@
     <Compile Include="GUI\Gui2UtilConnector.cs" />
     <Compile Include="GUI\GUICommon.cs" />
     <Compile Include="GUI\GUIExtensions.cs" />
+    <Compile Include="GUI\GUIFilmtipsetListItem.cs" />
     <Compile Include="GUI\GUIImageHandler.cs" />
     <Compile Include="GUI\GUICinema.cs" />
     <Compile Include="GUI\GUIRatingDialog.cs" />

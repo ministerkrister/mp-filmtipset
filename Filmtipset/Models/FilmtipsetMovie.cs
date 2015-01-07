@@ -27,8 +27,6 @@ namespace Filmtipset.Models
         [DataMember(Name = "alt_title")]
         public string AltTitle { get; set; }
 
-        //Comments
-
         [DataMember(Name = "country")]
         public string Country { get; set; }
 
@@ -43,8 +41,6 @@ namespace Filmtipset.Models
 
         [DataMember(Name = "filmtipsetgrade")]
         public FilmtipsetGrade FimltipsetGrade { get; set; }
-
-        //Genres
 
         [DataMember(Name = "grade")]
         public Grade Grade { get; set; }

@@ -27,7 +27,8 @@ namespace Filmtipset.API
             list,
             lists, //Custom action. Lists scraped from web page
             movie,
-            user
+            user,
+            grade
         }
 
         public enum FimtipsetApiGrade

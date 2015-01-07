@@ -54,6 +54,7 @@ namespace Filmtipset.GUI
 
         protected Account CurrentUser = Helpers.GetDefaultUser();
         protected Layout CurrentLayout { get; set; }
+        protected string currentListId = string.Empty;
 
         protected MoviesData Movies
         {
@@ -62,8 +63,11 @@ namespace Filmtipset.GUI
                 if (_Movies == null || LastRequest < DateTime.UtcNow.Subtract(new TimeSpan(0, FilmtipsetSettings.WebRequestCacheMinutes, 0)))
                 {
                     ImageDownloader.Instance.StopDownloads = true;
-                    _Movies = FilmtipsetAPI.Instance.GetList(FilmtipsetAPIListType.bio.ToString(), 0);
-                    _Movies.Movies.Sort((x, y) => string.Compare(x.Movie.Name, y.Movie.Name));
+                    _Movies = FilmtipsetAPI.Instance.GetList(currentListId, 0);
+                    if (currentListId != FilmtipsetAPIListType.tv.ToString())
+                    {
+                        _Movies.Movies.Sort((x, y) => string.Compare(y.Movie.Grade.Value, x.Movie.Grade.Value));
+                    }
                     LastRequest = DateTime.UtcNow;
                     PreviousSelectedIndex = 0;
                 }
@@ -93,14 +97,35 @@ namespace Filmtipset.GUI
         {
             base.OnPageLoad();
 
+            if (_loadParameter != null)
+            {
+                FilmtipsetLoadParam loadParams = _loadParameter.FromJSON<FilmtipsetLoadParam>();
+                if (loadParams != null && !string.IsNullOrEmpty(loadParams.Id) && !string.IsNullOrEmpty(loadParams.Title))
+                {
+                    string listId = loadParams.Id;
+                    if (currentListId != listId)
+                    {
+                        _Movies = null;
+                    }
+                    currentListId = listId;
+                    GUICommon.SetProperty("#header.label", loadParams.Title);
+                }
+            }
+            if (string.IsNullOrEmpty(currentListId))
+            {
+                currentListId = FilmtipsetAPIListType.bio.ToString();
+                GUICommon.SetProperty("#header.label", Translation.GetByName("Cinema"));
+            }
+
             if (CurrentUser.Id != FilmtipsetSettings.CurrentAccount.Id)
             {
                 if (FilmtipsetSettings.Accounts.Any(a => a.Id == FilmtipsetSettings.CurrentAccount.Id))
                     CurrentUser = FilmtipsetSettings.CurrentAccount;
                 else
                     CurrentUser = Helpers.GetDefaultUser();
-                Movies = null;
+                _Movies = null;
             }
+
             // Clear GUI Properties
             ClearProperties();
 
@@ -111,8 +136,6 @@ namespace Filmtipset.GUI
             LoadMovies();
 
         }
-
-
 
         protected override void OnPageDestroy(int new_windowId)
         {
@@ -127,7 +150,6 @@ namespace Filmtipset.GUI
 
             base.OnPageDestroy(new_windowId);
         }
-
 
         protected override void OnClicked(int controlId, GUIControl control, MediaPortal.GUI.Library.Action.ActionType actionType)
         {
@@ -152,7 +174,6 @@ namespace Filmtipset.GUI
                     CurrentUser.Layout = (int)CurrentLayout;
                     break;
                 case (5):
-                    //reload
                     ReloadMovies();
                     break;
                 default:
@@ -163,13 +184,108 @@ namespace Filmtipset.GUI
         protected override void OnShowContextMenu()
         {
             if (Gui2UtilConnector.Instance.IsBusy) return;
-            GUIListItem selectedItem = this.Facade.SelectedListItem;
+            GUIFilmtipsetListItem selectedItem = this.Facade.SelectedListItem as GUIFilmtipsetListItem;
             if (selectedItem == null) return;
-            selectedItem.ShowContextMenu(CurrentUser);
+            ShowContextMenu(selectedItem);
             base.OnShowContextMenu();
         }
 
         #endregion
+
+        #region protected methods
+
+        protected void ShowContextMenu(GUIFilmtipsetListItem selectedItem)
+        {
+            Movie selectedMovie = (Movie)selectedItem.TVTag;
+            IDialogbox dlg = (IDialogbox)GUIWindowManager.GetWindow((int)GUIWindow.Window.WINDOW_DIALOG_MENU);
+            if (dlg == null) return;
+
+            dlg.Reset();
+            dlg.SetHeading(GUIUtils.PluginName());
+
+            GUIListItem listItem = null;
+
+
+            if (!string.IsNullOrEmpty(CurrentUser.ApiKey))
+            {
+                listItem = new GUIListItem(selectedItem.IsPlayed ? Translation.GetByName("GradeChangeHeading") : Translation.GetByName("GradeSetHeading"));
+                dlg.Add(listItem);
+                listItem.ItemId = (int)ContextMenuItem.Rate;
+            }
+
+            if (ExternalPlugins.IsTrailersAvailableAndEnabled)
+            {
+                // Trailers
+                listItem = new GUIListItem(Translation.Trailers);
+                dlg.Add(listItem);
+                listItem.ItemId = (int)ContextMenuItem.Trailers;
+            }
+
+            if (ExternalPlugins.IsOnlineVideosAvailableAndEnabled)
+            {
+                // OV
+                listItem = new GUIListItem(Translation.OnlineVideosSearch + ": " + selectedMovie.Name);
+                dlg.Add(listItem);
+                listItem.ItemId = (int)ContextMenuItem.OnlineVideosTitle;
+                if (!string.IsNullOrEmpty(selectedMovie.OrgName) && selectedMovie.Name != selectedMovie.OrgName)
+                {
+                    listItem = new GUIListItem(Translation.OnlineVideosOrgName + ": " + selectedMovie.OrgName);
+                    dlg.Add(listItem);
+                    listItem.ItemId = (int)ContextMenuItem.OnlineVideosOrgTitle;
+                }
+            }
+
+            if (ExternalPlugins.IsTvWishListMPAvailableAndEnabled)
+            {
+                // TvWishList
+                listItem = new GUIListItem("Lägg till TvWish"); //Todo
+                dlg.Add(listItem);
+                listItem.ItemId = (int)ContextMenuItem.TvWish;
+            }
+
+            // Show Context Menu
+            dlg.DoModal(GUIWindowManager.ActiveWindow);
+            if (dlg.SelectedId < 0) return;
+
+            switch (dlg.SelectedId)
+            {
+                case ((int)ContextMenuItem.Rate):
+                    if (!string.IsNullOrEmpty(CurrentUser.ApiKey))
+                    {
+                        GUICommon.DoRating(selectedItem, this.GetID, 50);
+                        //Force update of movies next time (even if no grade has been set...)
+                        _Movies = null;
+                    }
+                    break;
+                case ((int)ContextMenuItem.Trailers):
+                    if (ExternalPlugins.IsTrailersAvailableAndEnabled)
+                    {
+                        GUICommon.CallTrailersPlugin(selectedMovie, selectedItem);
+                    }
+                    break;
+                case ((int)ContextMenuItem.TvWish):
+                    if (ExternalPlugins.IsTvWishListMPAvailableAndEnabled)
+                    {
+                        GUICommon.MakeTvWish(selectedMovie);
+                    }
+                    break;
+                case ((int)ContextMenuItem.OnlineVideosTitle):
+                    if (ExternalPlugins.IsOnlineVideosAvailableAndEnabled)
+                    {
+                        GUICommon.SearchOnlineVideos(selectedMovie.Name);
+                    }
+                    break;
+                case ((int)ContextMenuItem.OnlineVideosOrgTitle):
+                    if (ExternalPlugins.IsOnlineVideosAvailableAndEnabled)
+                    {
+                        GUICommon.SearchOnlineVideos(selectedMovie.OrgName);
+                    }
+                    break;
+
+                default:
+                    break;
+            }
+        }
 
         protected void InitProperties()
         {
@@ -218,7 +334,7 @@ namespace Filmtipset.GUI
 
             foreach (var movie in movieList)
             {
-                GUIFilmtipsetRecommendetionItem item = new GUIFilmtipsetRecommendetionItem(movie.Name, GetID);
+                GUIFilmtipsetListItem item = new GUIFilmtipsetListItem(movie.Name, GetID);
 
                 int grade = 0;
                 int.TryParse(movie.Grade.Value, out grade);
@@ -252,9 +368,6 @@ namespace Filmtipset.GUI
             // Download movie images Async and set to facade
             ImageDownloader.Instance.GetImages(movieImages);
         }
-
-
-        #region protected methods
 
         protected void LoadMovies()
         {

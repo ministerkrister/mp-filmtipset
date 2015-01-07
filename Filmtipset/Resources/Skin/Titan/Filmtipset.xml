@@ -49,7 +49,7 @@
         <description>Användare</description>
         <type>button</type>
         <id>2</id>
-        <onup>4</onup>
+        <onup>6</onup>
         <ondown>3</ondown>
       </control>
       <control Style="SettingsButton">
@@ -59,13 +59,30 @@
         <label>#Filmtipset.Translation.RecommendedMovies.Label</label>
         <onup>2</onup>
         <ondown>4</ondown>
+        <visible>true</visible>
       </control>
       <control Style="SettingsButton">
         <description>Bio</description>
         <type>button</type>
         <id>4</id>
-        <label>#Filmtipset.Translation.Cinema.Label</label>
+        <label>#Filmtipset.Translation.OnCinema.Label</label>
         <onup>3</onup>
+        <ondown>5</ondown>
+      </control>
+      <control Style="SettingsButton">
+        <description>Bio</description>
+        <type>button</type>
+        <id>5</id>
+        <label>#Filmtipset.Translation.OnDvd.Label</label>
+        <onup>4</onup>
+        <ondown>6</ondown>
+      </control>
+      <control Style="SettingsButton">
+        <description>Bio</description>
+        <type>button</type>
+        <id>6</id>
+        <label>#Filmtipset.Translation.OnTv.Label</label>
+        <onup>5</onup>
         <ondown>2</ondown>
       </control>
     </control>

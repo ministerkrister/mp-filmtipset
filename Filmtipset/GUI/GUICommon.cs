@@ -176,10 +176,12 @@ namespace Filmtipset.GUI
         #region Movie properties
         internal static void SetMovieProperties(Movie movie)
         {
+            if (movie == null) return;
+
             SetProperty("#Filmtipset.Movie.Actors", movie.Actors);
-            SetProperty("#Filmtipset.Movie.AltTitle", movie.AltTitle);
+            GUIUtils.SetProperty("#Filmtipset.Movie.AltTitle", movie.AltTitle);
             SetProperty("#Filmtipset.Movie.Country", movie.Country);
-            SetProperty("#Filmtipset.Movie.Description", movie.Description); 
+            SetProperty("#Filmtipset.Movie.Description", movie.Description);
             SetProperty("#Filmtipset.Movie.Director", movie.Director);
             SetProperty("#Filmtipset.Movie.Id", movie.Id.ToString());
             SetProperty("#Filmtipset.Movie.Imdb", "tt" + movie.Imdb);
@@ -191,8 +193,7 @@ namespace Filmtipset.GUI
             SetProperty("#Filmtipset.Movie.Url", movie.Url);
             SetProperty("#Filmtipset.Movie.Writers", movie.Writers);
             SetProperty("#Filmtipset.Movie.Year", movie.Year);
-            if (movie == null) return;
-            
+
             if (movie.FimltipsetGrade != null)
             {
                 SetProperty("#Filmtipset.Movie.FimltipsetGrade.Count", movie.FimltipsetGrade.Count.ToString());
@@ -209,6 +210,17 @@ namespace Filmtipset.GUI
 
                 SetProperty("#Filmtipset.Movie.Grade.Type", GUI.Translation.GetByName("GradeType" + movie.Grade.Type));
                 SetProperty("#Filmtipset.Movie.Grade.Grade", (v * 2).ToString());
+            }
+            TvInfo tvInfo = movie.TvInfo;
+            if (tvInfo != null)
+            {
+                SetProperty("#Filmtipset.Movie.Tv.Time", tvInfo.Time);
+                SetProperty("#Filmtipset.Movie.Tv.Channel", Translation.GetByName("Channel" + tvInfo.Channel));
+            }
+            else
+            {
+                GUIUtils.SetProperty("#Filmtipset.Movie.Tv.Time", string.Empty);
+                GUIUtils.SetProperty("#Filmtipset.Movie.Tv.Channel", string.Empty);
             }
         }
 
@@ -248,18 +260,18 @@ namespace Filmtipset.GUI
         #region rating
 
 
-        internal static void DoRating(Movie selectedMovie)
+        internal static void DoRating(GUIFilmtipsetListItem item, int windowId, int controlId)
         {
+            Movie selectedMovie = (Movie)item.TVTag;
             int v = 0;
             bool isSeen = false;
             if (selectedMovie.Grade != null)
             {
                 int.TryParse(selectedMovie.Grade.Value, out v);
                 isSeen = (selectedMovie.Grade.Type ?? string.Empty).Trim() == Filmtipset.API.GradeType.seen.ToString().Trim();
-                SetProperty("#Filmtipset.Movie.Grade.Grade", (v * 2).ToString());
             }
 
-            GUIRatingDialog itemRating = (GUIRatingDialog)GUIWindowManager.GetWindow(742199);
+            GUIRatingDialog itemRating = (GUIRatingDialog)GUIWindowManager.GetWindow((int)FilmtipsetGUIWindows.RatingDialog);
             itemRating.RateValue = v;
             itemRating.IsSubmitted = false;
             itemRating.SetHeading(isSeen ? Translation.GetByName("GradeChangeHeading") : Translation.GetByName("GradeSetHeading")); //todo
@@ -267,13 +279,44 @@ namespace Filmtipset.GUI
             itemRating.SetMovieName(selectedMovie.Name);
             itemRating.SetRating("");
             itemRating.DoModal(GUIWindowManager.ActiveWindow);
+            if (itemRating.IsSubmitted && ((isSeen && v != itemRating.RateValue) || (!isSeen && itemRating.RateValue > 0)))
+            {
+                Gui2UtilConnector.Instance.ExecuteInBackgroundAndCallback(() =>
+                {
+                    Movie movie;
+                    movie = FilmtipsetAPI.Instance.RateMovie(selectedMovie.Id, itemRating.RateValue).FirstOrDefault(m => m.Movie.Id == selectedMovie.Id).Movie;
+                    return movie;
+                },
+                delegate(bool success, object result)
+                {
+                    if (success)
+                    {
+                        Movie movie = result as Movie;
+                        v = 0;
+                        isSeen = false;
+                        if (movie.Grade != null)
+                        {
+                            int.TryParse(movie.Grade.Value, out v);
+                            isSeen = (movie.Grade.Type ?? string.Empty).Trim() == Filmtipset.API.GradeType.seen.ToString().Trim();
+                        }
+                        item.TVTag = movie;
+                        item.IsPlayed = isSeen;
+                        item.IconImage = GUIImageHandler.GetGradeIcon(v);
+                        item.PinImage = GUIImageHandler.GetWatchedIcon(isSeen);
+                        item.UpdateItemIfSelected(windowId, item.ItemId, controlId);
+                    }
+                    else
+                    {
+                        GUIUtils.ShowNotifyDialog(Translation.GetByName("Filmtipset"), "Error fel i betyg fospd"); //todo
+                    }
+                }, "Rate movie", true);
+            }
         }
 
         #endregion
 
         #region external plugin dll calls,
 
-        //do not call this method if you don't check if Trailers plugin dll exsists!!
         internal static void CallTrailersPlugin(Movie selectedMovie, GUIListItem selectedItem)
         {
             int y = 0;
@@ -495,93 +538,5 @@ namespace Filmtipset.GUI
             }
         }
 
-    }
-    public class GUIFilmtipsetRecommendetionItem : GUIListItem
-    {
-        public GUIFilmtipsetRecommendetionItem(string strLabel, int windowId) : base(strLabel) { WindowID = windowId; }
-
-        public int WindowID { get; set; }
-        public object Item
-        {
-            get { return _Item; }
-            set
-            {
-                _Item = value;
-                INotifyPropertyChanged notifier = value as INotifyPropertyChanged;
-                if (notifier != null) notifier.PropertyChanged += (s, e) =>
-                {
-                    if (s is MovieImages && e.PropertyName == "PosterImageFilename")
-                        SetImageToGui((s as MovieImages).PosterImageFilename);
-                    if (s is MovieImages && e.PropertyName == "FanartImageFilename")
-                        this.UpdateItemIfSelected(WindowID, ItemId);
-
-                };
-            }
-        } protected object _Item;
-
-        /// <summary>
-        /// Loads an Image from memory into a facade item
-        /// </summary>
-        /// <param name="imageFilePath">Filename of image</param>
-        protected void SetImageToGui(string imageFilePath)
-        {
-            if (!FilmtipsetSettings.SkipOverlay)
-            {
-                #region overlay
-                try
-                {
-                    if (string.IsNullOrEmpty(imageFilePath)) return;
-                    Movie movie = TVTag as Movie;
-                    if (movie == null) return;
-
-                    MainOverlayImage mainOverlay = MainOverlayImage.None;
-
-                    //if (movie.Grade.Type == GradeType.seen.ToString())
-                    //    mainOverlay = MainOverlayImage.Seen;
-
-                    int rating = 0;
-                    int.TryParse(movie.Grade.Value, out rating);
-                    RatingOverlayImage ratingOverlay = (RatingOverlayImage)rating;
-
-                    // get a reference to a MediaPortal Texture Identifier
-                    string suffix = mainOverlay.ToString().Replace(", ", string.Empty) + Enum.GetName(typeof(RatingOverlayImage), ratingOverlay);
-                    string texture = GUIImageHandler.GetTextureIdentFromFile(imageFilePath, suffix);
-
-                    // build memory image
-                    Image memoryImage = null;
-                    if (mainOverlay != MainOverlayImage.None || ratingOverlay != RatingOverlayImage.None)
-                    {
-                        memoryImage = GUIImageHandler.DrawOverlayOnPoster(imageFilePath, mainOverlay, ratingOverlay, new Size(FilmtipsetSettings.ThumbWidth, FilmtipsetSettings.ThumbHeight));
-                        if (memoryImage == null) return;
-
-                        // load texture into facade item
-                        if (GUITextureManager.LoadFromMemory(memoryImage, texture, 0, 0, 0) > 0)
-                        {
-                            ThumbnailImage = texture;
-                            IconImageBig = texture;
-                        }
-                    }
-                    else
-                    {
-                        ThumbnailImage = imageFilePath;
-                        IconImageBig = imageFilePath;
-                    }
-
-                    // if selected and is current window force an update of thumbnail
-                    this.UpdateItemIfSelected(WindowID, ItemId);
-                }
-                catch (Exception e)
-                {
-                    Log.Error(string.Format("[Filmtipset] Error in SetImageToGui, memory isues? {0}", e.Message));
-                }
-                #endregion
-            }
-            else
-            {
-                ThumbnailImage = imageFilePath;
-                IconImageBig = imageFilePath;
-                this.UpdateItemIfSelected(WindowID, ItemId);
-            }
-        }
     }
 }

@@ -9,6 +9,7 @@ using Filmtipset.GUI;
 using Filmtipset.Models;
 using Filmtipset.Util;
 using Filmtipset.Extensions;
+using Filmtipset.API;
 
 
 
@@ -99,8 +100,6 @@ namespace Filmtipset
         #region skin controls
         [SkinControl(2)]
         protected GUIButtonControl userButton = null;
-        [SkinControl(3)]
-        protected GUIButtonControl recomendButton = null;
         #endregion
 
         #region GUIWindow
@@ -280,7 +279,13 @@ namespace Filmtipset
                     GUIWindowManager.ActivateWindow((int)FilmtipsetGUIWindows.Recommendations);
                     break;
                 case (4):
-                    GUIWindowManager.ActivateWindow((int)FilmtipsetGUIWindows.Cinema);
+                    GUIWindowManager.ActivateWindow((int)FilmtipsetGUIWindows.Cinema, (new FilmtipsetLoadParam() { Id = FilmtipsetAPIListType.bio.ToString(), Title = Translation.GetByName("OnCinema") }).ToJSON());
+                    break;
+                case (5):
+                    GUIWindowManager.ActivateWindow((int)FilmtipsetGUIWindows.Cinema, (new FilmtipsetLoadParam() { Id = FilmtipsetAPIListType.video.ToString(), Title = Translation.GetByName("OnDvd") }).ToJSON());
+                    break;
+                case (6):
+                    GUIWindowManager.ActivateWindow((int)FilmtipsetGUIWindows.Cinema, (new FilmtipsetLoadParam() { Id = FilmtipsetAPIListType.tv.ToString(), Title = Translation.GetByName("OnTv") }).ToJSON());
                     break;
                 default:
                     break;
