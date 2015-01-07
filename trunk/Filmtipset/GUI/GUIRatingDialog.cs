@@ -231,6 +231,7 @@ namespace Filmtipset.GUI
         }
         private void generateLabel()
         {
+            //todo
             if (this.IsSeen)
             {
                 if (RateValue == 0)
