@@ -189,7 +189,7 @@ namespace Filmtipset.GUI
             SetProperty("#Filmtipset.Movie.Name", movie.Name);
             SetProperty("#Filmtipset.Movie.OrgName", movie.OrgName);
             SetProperty("#Filmtipset.Movie.PosterImageFilename", movie.Images.PosterImageFilename);
-            SetProperty("#Filmtipset.Movie.TimeSeen", movie.TimeSeen);
+            GUIUtils.SetProperty("#Filmtipset.Movie.TimeSeen", movie.TimeSeen);
             SetProperty("#Filmtipset.Movie.Url", movie.Url);
             SetProperty("#Filmtipset.Movie.Writers", movie.Writers);
             SetProperty("#Filmtipset.Movie.Year", movie.Year);
@@ -243,6 +243,8 @@ namespace Filmtipset.GUI
             GUIUtils.SetProperty("#Filmtipset.Movie.OrgName", string.Empty);
             GUIUtils.SetProperty("#Filmtipset.Movie.PosterImageFilename", string.Empty);
             GUIUtils.SetProperty("#Filmtipset.Movie.TimeSeen", string.Empty);
+            GUIUtils.SetProperty("#Filmtipset.Movie.Tv.Time", string.Empty);
+            GUIUtils.SetProperty("#Filmtipset.Movie.Tv.Channel", string.Empty);
             GUIUtils.SetProperty("#Filmtipset.Movie.Url", string.Empty);
             GUIUtils.SetProperty("#Filmtipset.Movie.Writers", string.Empty);
             GUIUtils.SetProperty("#Filmtipset.Movie.Year", string.Empty);

@@ -215,11 +215,14 @@ namespace Filmtipset.API
             parameters.Add("action", FilmtipsetAPIAction.list.ToString());
             parameters.Add("id", listId);
             if (listId == FilmtipsetAPIListType.grades.ToString())
+            {
                 parameters.Add("grade", grade.ToString());
-            string json = GetWebData(parameters);
-            IEnumerable<Response<IEnumerable<MoviesData>>> o = json.FromJSONArray<Response<IEnumerable<MoviesData>>>();
+            }
             try
             {
+                string json = GetWebData(parameters);
+                IEnumerable<Response<IEnumerable<MoviesData>>> o = json.FromJSONArray<Response<IEnumerable<MoviesData>>>();
+                // o.First().Data.First().Offset
                 return o.First().Data.First();
             }
             catch (Exception e)
