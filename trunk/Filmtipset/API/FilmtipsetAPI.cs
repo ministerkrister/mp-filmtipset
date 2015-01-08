@@ -17,7 +17,7 @@ namespace Filmtipset.API
 
         #region Private parts
         // userid, movieid,the movie
-        private IDictionary<int,IDictionary<int, MovieWrapper>> cache;
+        private IDictionary<int,IDictionary<string, MovieWrapper>> cache;
         #endregion
 
 
@@ -27,7 +27,7 @@ namespace Filmtipset.API
             //userKey = "ie9t8thm";
             //userId = null;
             //userName = null;
-            cache = new Dictionary<int, IDictionary<int, MovieWrapper>>();
+            cache = new Dictionary<int, IDictionary<string, MovieWrapper>>();
         }
 
         protected static FilmtipsetAPI instance = null;
@@ -139,13 +139,13 @@ namespace Filmtipset.API
 
         #region Movie
 
-        internal IEnumerable<Movie> GetMultipleMovie(int[] ids, bool forceUpdate = false)
+        internal IEnumerable<Movie> GetMultipleMovie(string[] ids, bool forceUpdate = false)
         {
             int cu = FilmtipsetSettings.CurrentAccount.Id;
             if (!cache.ContainsKey(cu))
-                cache.Add(cu, new Dictionary<int, MovieWrapper>());
+                cache.Add(cu, new Dictionary<string, MovieWrapper>());
             string idsToGet = "";
-            foreach (int id in ids)
+            foreach (string id in ids)
             {
                 if (forceUpdate && cache[cu].ContainsKey(id))
                     cache[cu].Remove(id);
@@ -167,21 +167,21 @@ namespace Filmtipset.API
             IEnumerable<MovieWrapper> movieWraps = response.First().Data;
             foreach (MovieWrapper movieWrap in movieWraps)
             {
-                cache[cu].Add(movieWrap.Movie.Id, movieWrap);
+                cache[cu].Add(movieWrap.Movie.Id.ToString(), movieWrap);
             }
 
             List<Movie> movies = new List<Movie>();
 
-            foreach (int id in ids)
+            foreach (string id in ids)
             {
                 movies.Add(cache[cu][id].Movie);
             }
             return movies;
         }
 
-        internal IEnumerable<Movie> GetMovie(int id, bool forceUpdate = false)
+        internal IEnumerable<Movie> GetMovie(string id, bool forceUpdate = false)
         {
-            int[] ids = { id };
+            string[] ids = { id };
             return GetMultipleMovie(ids, forceUpdate);
         }
 

@@ -98,6 +98,7 @@
     <Compile Include="GUI\GUIExtensions.cs" />
     <Compile Include="GUI\GUIFilmtipsetListItem.cs" />
     <Compile Include="GUI\GUIImageHandler.cs" />
+    <Compile Include="GUI\GUIMovie.cs" />
     <Compile Include="GUI\GUIList.cs" />
     <Compile Include="GUI\GUIRatingDialog.cs" />
     <Compile Include="GUI\GUIRecomendations.cs" />
@@ -144,6 +145,9 @@
     </Content>
     <Content Include="Resources\Skin\Titan\Filmtipset.List.xml">
       <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Skin\Titan\Filmtipset.Movie.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Skin\Titan\Filmtipset.RateDialog.xml">
