@@ -174,8 +174,17 @@ namespace Filmtipset.GUI
                     CurrentLayout = GUICommon.ShowLayoutMenu(CurrentLayout, PreviousSelectedIndex);
                     CurrentUser.Layout = (int)CurrentLayout;
                     break;
-                case (5):
-                    ReloadMovies();
+                case (50):
+                    if (actionType == MediaPortal.GUI.Library.Action.ActionType.ACTION_SELECT_ITEM)
+                    {
+                        GUIListItem selectedItem = this.Facade.SelectedListItem;
+                        if (selectedItem == null) return;
+
+                        Movie selectedMovie = selectedItem.TVTag as Movie;
+                        if (selectedMovie == null) return;
+
+                        GUIWindowManager.ActivateWindow((int)FilmtipsetGUIWindows.Movie, selectedMovie.Id.ToString());
+                    }
                     break;
                 default:
                     break;

@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<window>
+   <id>742198</id>
+  <defaultcontrol>2</defaultcontrol>
+  <allowoverlay>no</allowoverlay>
+
+  <controls>
+
+    <!--            :: MAIN DETAILS ::            -->
+
+      <control>
+        <description>DEFAULT BACKGROUND</description>
+        <type>image</type>
+        <id>0</id>
+        <posX>0</posX>
+        <posY>0</posY>
+        <width>1920</width>
+        <height>1080</height>
+        <texture>background.png</texture>
+        <shouldCache>true</shouldCache>
+      </control>
+      <import>Filmtipset.Common.Fanart.xml</import>
+      <control>
+        <description>fan overlay</description>
+        <type>image</type>
+        <id>0</id>
+        <posX>0</posX>
+        <posY>0</posY>
+        <width>1920</width>
+        <height>1080</height>
+        <texture>fanart_overlay.png</texture>
+        <animation effect="fade" time="250">WindowOpen</animation>
+        <animation effect="fade" time="250">WindowClose</animation>
+      </control>
+    <control>
+
+      <description>Vignette background</description>
+      <type>image</type>
+      <id>0</id>
+      <posX>10</posX>
+      <posY>252</posY>
+      <width>1903</width>
+      <height>790</height>
+      <texture>panel_thumbs_noinfo.png</texture>
+      <animation effect="fade"
+                 time="0">Visible</animation>
+      <animation effect="fade"
+                 time="0">WindowClose</animation>
+    </control>
+
+    <control>
+      <description>Button group</description>
+      <type>group</type>
+      <animation effect="fade"
+                 time="250">Visible</animation>
+      <animation effect="fade"
+                 time="0">WindowClose</animation>
+      <posX>571</posX>
+      <posY>364</posY>
+      <dimColor>ffffffff</dimColor>
+      <layout>StackLayout(7, Vertical, true)</layout>
+
+      <control Style="detailsButton">
+        <description>Member</description>
+        <type>button</type>
+        <id>2</id>
+        <label>208</label>
+        <onup>3</onup>
+        <ondown>3</ondown>
+        <textureFocus>myvideos_play_focus.png</textureFocus>
+        <textureNoFocus>myvideos_play_nofocus.png</textureNoFocus>
+      </control>
+
+      <control Style="detailsButton">
+        <description>Hej</description>
+        <type>button</type>
+        <id>3</id>
+        <label>Bananer</label>
+        <onup>2</onup>
+        <ondown>2</ondown>
+      </control>
+    </control>
+    
+    <!-- Summary labels -->
+
+    <control>
+      <description>Poster shadow</description>
+      <type>image</type>
+      <id>1</id>
+      <posX>105</posX>
+      <posY>346</posY>
+      <width>429</width>
+      <height>613</height>
+      <texture>list_poster_shadow.png</texture>
+      <animation effect="fade"
+                 time="0">Visible</animation>
+      <animation effect="fade"
+                 time="0">WindowClose</animation>
+    </control>
+
+    <control>
+      <description>Cover Art</description>
+      <type>image</type>
+      <id>60</id>
+      <posX>123</posX>
+      <posY>360</posY>
+      <width>379</width>
+      <height>563</height>
+      <texture>#Filmtipset.Poster</texture>
+      <animation effect="fade"
+                 time="0">Visible</animation>
+      <animation effect="fade"
+                 time="0">WindowClose</animation>
+    </control>
+
+    <control Style="detailsTitle">
+      <description>Movie Title</description>
+      <type>fadelabel</type>
+      <id>0</id>
+      <posX>1020</posX>
+      <posY>352</posY>
+      <label>#Filmtipset.Movie.Name</label>
+      <animation effect="fade"
+                 time="250">Visible</animation>
+      <animation effect="fade"
+                 time="0">WindowClose</animation>
+    </control>
+
+
+
+  </controls>
+</window>
