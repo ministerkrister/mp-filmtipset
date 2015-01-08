@@ -411,15 +411,14 @@ namespace Filmtipset.GUI
             set
             {
                 lock (lockObj)
-                    _stopDownload = false;
+                    _stopDownload = value;
             }
         }
         private bool _stopDownload;
 
         internal void GetImages(List<MovieImages> itemsWithThumbs)
         {
-            lock (lockObj)
-                _stopDownload = false;
+            StopDownloads = false;
 
             // split the downloads in 5+ groups and do multithreaded downloading
             int groupSize = (int)Math.Max(1, Math.Floor((double)itemsWithThumbs.Count / 5));
@@ -427,6 +426,7 @@ namespace Filmtipset.GUI
 
             for (int i = 0; i < groups; i++)
             {
+                if (StopDownloads) break;
                 List<MovieImages> groupList = new List<MovieImages>();
                 for (int j = groupSize * i; j < groupSize * i + (groupSize * (i + 1) > itemsWithThumbs.Count ? itemsWithThumbs.Count - groupSize * i : groupSize); j++)
                 {
@@ -438,6 +438,7 @@ namespace Filmtipset.GUI
                     List<MovieImages> items = (List<MovieImages>)o;
                     foreach (MovieImages item in items)
                     {
+                        if (StopDownloads) break;
                         string remoteFanartPoster = string.Empty;
                         string remoteFanart = string.Empty;
                         bool getFanartUrls = true;
@@ -446,25 +447,23 @@ namespace Filmtipset.GUI
                             FanartAPI.Instance.GetFanartFromCache(item.Imdb, out getFanartUrls, out remoteFanart, out remoteFanartPoster);
                         }
                         #region FanartPoster
-                        bool havePoster = false;
-                        if (FilmtipsetSettings.EnableFanart)
+                        bool havePoster = GUIImageHandler.DoLocalFileExist(item.PosterImageFilename ?? "dummyfilname.image");
+                        if (FilmtipsetSettings.EnableFanart && !havePoster)
                         {
 
-                            if (FilmtipsetSettings.PreferFanartPoster && !GUIImageHandler.DoLocalFileExist(item.PosterImageFilename))
+                            if (FilmtipsetSettings.PreferFanartPoster)
                             {
                                 // stop download if we have exited window
-                                lock (lockObj)
-                                    if (_stopDownload) break;
-                                string localPoster = item.PosterImageFilename;
+                                if (StopDownloads) break;
+                                string originalPoster = item.Poster;
                                 if (getFanartUrls)
                                 {
                                     FanartAPI.Instance.GetFanartUrls(item.Imdb, GUI.Translation.CurrentLanguage, out remoteFanart, out remoteFanartPoster);
                                     FanartAPI.Instance.AddToCache(item.Imdb, remoteFanart, remoteFanartPoster);
                                     getFanartUrls = false;
                                 }
-                                localPoster = item.PosterImageFilename;
-
-
+                                item.Poster = remoteFanartPoster;
+                                string localPoster = item.PosterImageFilename;
                                 if (!string.IsNullOrEmpty(remoteFanartPoster) && !string.IsNullOrEmpty(localPoster))
                                 {
                                     if (GUIImageHandler.DownloadImage(remoteFanartPoster, localPoster))
@@ -474,6 +473,10 @@ namespace Filmtipset.GUI
                                         item.NotifyPropertyChanged("PosterImageFilename");
                                     }
                                 }
+                                if (!havePoster)
+                                {
+                                    item.Poster = originalPoster;
+                                }
                             }
                         }
                         #endregion
@@ -482,8 +485,7 @@ namespace Filmtipset.GUI
                         if (!havePoster)
                         {
                             // stop download if we have exited window
-                            lock (lockObj)
-                                if (_stopDownload) break;
+                            if (StopDownloads) break;
 
                             string remotePoster = item.Poster;
                             string localPoster = item.PosterImageFilename;
@@ -496,12 +498,15 @@ namespace Filmtipset.GUI
                                     item.NotifyPropertyChanged("PosterImageFilename");
                                 }
                             }
+                        } 
+                        else
+                        {
+                            item.NotifyPropertyChanged("PosterImageFilename");
                         }
                         #endregion
                         #region Fanart
                         // stop download if we have exited window
-                        lock (lockObj)
-                            if (_stopDownload) break;
+                        if (StopDownloads) break;
                         if (!FilmtipsetSettings.EnableFanart) continue;
                         string localFanart = item.FanartImageFilename;
                         if (!string.IsNullOrEmpty(localFanart) && GUIImageHandler.DoLocalFileExist(localFanart))

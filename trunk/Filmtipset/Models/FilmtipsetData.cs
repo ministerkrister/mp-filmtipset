@@ -24,20 +24,6 @@ namespace Filmtipset.Models
     }
 
     [DataContract]
-    public class MoviesListData : MoviesData
-    {
-        [DataMember(Name = "count")]
-        public int Count { get; set; }
-
-        [DataMember(Name = "offset")]
-        public int Offset { get; set; }
-
-        [DataMember(Name = "list")]
-        public string ListType { get; set; }
-
-    }
-
-    [DataContract]
     public class MoviesRecomendationData : MoviesData
     {
         [DataMember(Name = "type")]
