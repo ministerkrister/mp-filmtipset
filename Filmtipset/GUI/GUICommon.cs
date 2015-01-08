@@ -36,16 +36,10 @@ namespace Filmtipset.GUI
     {
         Main = 742100,
         Recommendations = 742101,
-        Cinema = 742102,
-        List = 80087,
-        Dvd = 80187,
-        Tv = 80287,
-        Owned = 80387,
-        Wanted = 80487,
-        LatestSeen = 80587,
-        Grades = 80088,
-        Lists = 80089,
-        Movie = 80090,
+        List = 742102,
+        Grades = 742103,
+        Lists = 742104,
+        Movie = 742198,
         RatingDialog = 742199
     }
 

@@ -11,7 +11,7 @@ using MediaPortal.Util;
 
 namespace Filmtipset.GUI
 {
-    public class GUICinema : GUIWindow
+    public class GUIList : GUIWindow
     {
         #region Skin Controls
 
@@ -37,7 +37,7 @@ namespace Filmtipset.GUI
 
         #region Constructor
 
-        public GUICinema()
+        public GUIList()
         {
             backdrop = new ImageSwapper();
             backdrop.PropertyOne = "#Filmtipset.Fanart.1";
@@ -86,12 +86,12 @@ namespace Filmtipset.GUI
         #region overrides
         public override int GetID
         {
-            get { return (int)FilmtipsetGUIWindows.Cinema; }
+            get { return (int)FilmtipsetGUIWindows.List; }
         }
 
         public override bool Init()
         {
-            return Load(GUIGraphicsContext.Skin + @"\Filmtipset.Cinema.xml");
+            return Load(GUIGraphicsContext.Skin + @"\Filmtipset.List.xml");
         }
 
         protected override void OnPageLoad()

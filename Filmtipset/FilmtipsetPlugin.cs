@@ -279,25 +279,25 @@ namespace Filmtipset
                     GUIWindowManager.ActivateWindow((int)FilmtipsetGUIWindows.Recommendations);
                     break;
                 case (4):
-                    GUIWindowManager.ActivateWindow((int)FilmtipsetGUIWindows.Cinema, (new FilmtipsetLoadParam() { Id = FilmtipsetAPIListType.bio.ToString(), Title = Translation.GetByName("OnCinema") }).ToJSON());
+                    GUIWindowManager.ActivateWindow((int)FilmtipsetGUIWindows.List, (new FilmtipsetLoadParam() { Id = FilmtipsetAPIListType.bio.ToString(), Title = Translation.GetByName("OnCinema") }).ToJSON());
                     break;
                 case (5):
-                    GUIWindowManager.ActivateWindow((int)FilmtipsetGUIWindows.Cinema, (new FilmtipsetLoadParam() { Id = FilmtipsetAPIListType.video.ToString(), Title = Translation.GetByName("OnDvd") }).ToJSON());
+                    GUIWindowManager.ActivateWindow((int)FilmtipsetGUIWindows.List, (new FilmtipsetLoadParam() { Id = FilmtipsetAPIListType.video.ToString(), Title = Translation.GetByName("OnDvd") }).ToJSON());
                     break;
                 case (6):
-                    GUIWindowManager.ActivateWindow((int)FilmtipsetGUIWindows.Cinema, (new FilmtipsetLoadParam() { Id = FilmtipsetAPIListType.tv.ToString(), Title = Translation.GetByName("OnTv") }).ToJSON());
+                    GUIWindowManager.ActivateWindow((int)FilmtipsetGUIWindows.List, (new FilmtipsetLoadParam() { Id = FilmtipsetAPIListType.tv.ToString(), Title = Translation.GetByName("OnTv") }).ToJSON());
                     break;
                 case (7):
-                    GUIWindowManager.ActivateWindow((int)FilmtipsetGUIWindows.Cinema, (new FilmtipsetLoadParam() { Id = FilmtipsetAPIListType.owned.ToString(), Title = Translation.GetByName("listowned") }).ToJSON());
+                    GUIWindowManager.ActivateWindow((int)FilmtipsetGUIWindows.List, (new FilmtipsetLoadParam() { Id = FilmtipsetAPIListType.owned.ToString(), Title = Translation.GetByName("listowned") }).ToJSON());
                     break;
                 case (8):
-                    GUIWindowManager.ActivateWindow((int)FilmtipsetGUIWindows.Cinema, (new FilmtipsetLoadParam() { Id = FilmtipsetAPIListType.wantedlist.ToString(), Title = Translation.GetByName("listwantedlist") }).ToJSON());
+                    GUIWindowManager.ActivateWindow((int)FilmtipsetGUIWindows.List, (new FilmtipsetLoadParam() { Id = FilmtipsetAPIListType.wantedlist.ToString(), Title = Translation.GetByName("listwantedlist") }).ToJSON());
                     break;
                 case (9):
-                    GUIWindowManager.ActivateWindow((int)FilmtipsetGUIWindows.Cinema, (new FilmtipsetLoadParam() { Id = FilmtipsetAPIListType.seen.ToString(), Title = Translation.GetByName("listseen") }).ToJSON());
+                    GUIWindowManager.ActivateWindow((int)FilmtipsetGUIWindows.List, (new FilmtipsetLoadParam() { Id = FilmtipsetAPIListType.seen.ToString(), Title = Translation.GetByName("listseen") }).ToJSON());
                     break;
                 case (10):
-                    GUIWindowManager.ActivateWindow((int)FilmtipsetGUIWindows.Cinema, (new FilmtipsetLoadParam() { Id = FilmtipsetAPIListType.grades.ToString(), Title = Translation.GetByName("listgrades") }).ToJSON());
+                    GUIWindowManager.ActivateWindow((int)FilmtipsetGUIWindows.List, (new FilmtipsetLoadParam() { Id = FilmtipsetAPIListType.grades.ToString(), Title = Translation.GetByName("listgrades") }).ToJSON());
                     break;
                 default:
                     break;
