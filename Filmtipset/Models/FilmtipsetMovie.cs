@@ -244,7 +244,7 @@ namespace Filmtipset.Models
                 _PosterImageFilename = value;
             }
         }
-        string _PosterImageFilename = string.Empty;
+       string _PosterImageFilename = string.Empty;
 
         public string FanartImageFilename
         {

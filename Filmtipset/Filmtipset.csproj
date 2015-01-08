@@ -192,6 +192,9 @@
     <Content Include="Resources\Skin\Titan\Media\FilmtipsetBadgeGrade5Grey.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\Skin\Titan\Media\FilmtipsetBadgeGrey.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Skin\Titan\Media\FilmtipsetNotWatched.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

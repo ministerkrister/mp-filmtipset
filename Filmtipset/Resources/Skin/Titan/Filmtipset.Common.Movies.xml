@@ -74,7 +74,7 @@
       <textureWidth>27</textureWidth>
       <textureHeight>27</textureHeight>
       <subitems>
-        <subitem>FilmtipsetBadgeGrade5Grey.png</subitem>
+        <subitem>FilmtipsetBadgeGrey.png</subitem>
         <subitem>#(iif(eq(#Filmtipset.Movie.Grade.Grade, '2'),'FilmtipsetBadgeGrade1.png','FilmtipsetBadgeGrade1Grey.png'))</subitem>
         <subitem>#(iif(eq(#Filmtipset.Movie.Grade.Grade, '4'),'FilmtipsetBadgeGrade2.png','FilmtipsetBadgeGrade2Grey.png'))</subitem>
         <subitem>#(iif(eq(#Filmtipset.Movie.Grade.Grade, '6'),'FilmtipsetBadgeGrade3.png','FilmtipsetBadgeGrade3Grey.png'))</subitem>
@@ -110,7 +110,7 @@
       <textureWidth>27</textureWidth>
       <textureHeight>27</textureHeight>
       <subitems>
-        <subitem>FilmtipsetBadgeGrade5Grey.png</subitem>
+        <subitem>FilmtipsetBadgeGrey.png</subitem>
         <subitem>#(iif(eq(#Filmtipset.Movie.FimltipsetGrade.Stars, '2'),'FilmtipsetBadgeGrade1.png','FilmtipsetBadgeGrade1Grey.png'))</subitem>
         <subitem>#(iif(eq(#Filmtipset.Movie.FimltipsetGrade.Stars, '4'),'FilmtipsetBadgeGrade2.png','FilmtipsetBadgeGrade2Grey.png'))</subitem>
         <subitem>#(iif(eq(#Filmtipset.Movie.FimltipsetGrade.Stars, '6'),'FilmtipsetBadgeGrade3.png','FilmtipsetBadgeGrade3Grey.png'))</subitem>
@@ -362,7 +362,7 @@
       <textureWidth>27</textureWidth>
       <textureHeight>27</textureHeight>
       <subitems>
-        <subitem>FilmtipsetBadgeGrade5Grey.png</subitem>
+        <subitem>FilmtipsetBadgeGrey.png</subitem>
         <subitem>#(iif(eq(#Filmtipset.Movie.Grade.Grade, '2'),'FilmtipsetBadgeGrade1.png','FilmtipsetBadgeGrade1Grey.png'))</subitem>
         <subitem>#(iif(eq(#Filmtipset.Movie.Grade.Grade, '4'),'FilmtipsetBadgeGrade2.png','FilmtipsetBadgeGrade2Grey.png'))</subitem>
         <subitem>#(iif(eq(#Filmtipset.Movie.Grade.Grade, '6'),'FilmtipsetBadgeGrade3.png','FilmtipsetBadgeGrade3Grey.png'))</subitem>
@@ -398,7 +398,7 @@
       <textureWidth>27</textureWidth>
       <textureHeight>27</textureHeight>
       <subitems>
-        <subitem>FilmtipsetBadgeGrade5Grey.png</subitem>
+        <subitem>FilmtipsetBadgeGrey.png</subitem>
         <subitem>#(iif(eq(#Filmtipset.Movie.FimltipsetGrade.Stars, '2'),'FilmtipsetBadgeGrade1.png','FilmtipsetBadgeGrade1Grey.png'))</subitem>
         <subitem>#(iif(eq(#Filmtipset.Movie.FimltipsetGrade.Stars, '4'),'FilmtipsetBadgeGrade2.png','FilmtipsetBadgeGrade2Grey.png'))</subitem>
         <subitem>#(iif(eq(#Filmtipset.Movie.FimltipsetGrade.Stars, '6'),'FilmtipsetBadgeGrade3.png','FilmtipsetBadgeGrade3Grey.png'))</subitem>

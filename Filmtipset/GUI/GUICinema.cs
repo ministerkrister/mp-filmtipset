@@ -341,7 +341,7 @@ namespace Filmtipset.GUI
                 int.TryParse(movie.Grade.Value, out grade);
                 item.TVTag = movie;
                 item.Item = movie.Images;
-                item.ItemId = movie.Id;
+                item.ItemId = movie.Id + FilmtipsetSettings.MovieItemIdPadding;
                 item.IsPlayed = movie.Grade.Type == GradeType.seen.ToString();
                 item.IconImage = GUIImageHandler.GetGradeIcon(grade);
                 item.IconImageBig = GUIImageHandler.GetDefaultPoster(false);
