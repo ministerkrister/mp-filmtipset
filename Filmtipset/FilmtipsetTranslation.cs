@@ -280,7 +280,7 @@ namespace Filmtipset.GUI
         public static string listvideo = "DVD";
         public static string listowned = "Min filmsamling";
         public static string listwantedlist = "Vill se-listan";
-        public static string listseen = "Senast betygsatta filmer";
+        public static string listseen = "Senast sedda filmer";
         public static string listgrades = "Mina betyg";
         public static string Lists = "Listor";
 
@@ -316,6 +316,7 @@ namespace Filmtipset.GUI
         public static string TvWishTimeout = "TvWish ej tillagd (timeout)";
         public static string TvChannel = "TV-kanal";
         public static string TvTime = "Sändningstid";
+        public static string TimeSeen = "Betyg satt";
 
         //Y
         public static string Year = "År";

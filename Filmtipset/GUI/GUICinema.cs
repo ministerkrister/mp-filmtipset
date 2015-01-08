@@ -56,6 +56,7 @@ namespace Filmtipset.GUI
         protected Layout CurrentLayout { get; set; }
         protected string currentListId = string.Empty;
 
+        protected readonly string[] doSort = { FilmtipsetAPIListType.bio.ToString(), FilmtipsetAPIListType.video.ToString() };
         protected MoviesData Movies
         {
             get
@@ -63,8 +64,8 @@ namespace Filmtipset.GUI
                 if (_Movies == null || LastRequest < DateTime.UtcNow.Subtract(new TimeSpan(0, FilmtipsetSettings.WebRequestCacheMinutes, 0)))
                 {
                     ImageDownloader.Instance.StopDownloads = true;
-                    _Movies = FilmtipsetAPI.Instance.GetList(currentListId, 0);
-                    if (currentListId != FilmtipsetAPIListType.tv.ToString())
+                    _Movies = FilmtipsetAPI.Instance.GetList(currentListId, currentListId == FilmtipsetAPIListType.grades.ToString() ? 5 : 0);
+                    if (doSort.Contains(currentListId))
                     {
                         _Movies.Movies.Sort((x, y) => string.Compare(y.Movie.Grade.Value, x.Movie.Grade.Value));
                     }

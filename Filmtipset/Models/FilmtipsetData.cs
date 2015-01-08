@@ -15,6 +15,12 @@ namespace Filmtipset.Models
         [DataMember(Name = "movies")]
         public List<MovieWrapper> Movies { get; set; }
 
+        [DataMember(Name = "offset")]
+        public int Offset { get; set; }
+
+        [DataMember(Name = "count")]
+        public int Count { get; set; }
+
     }
 
     [DataContract]
