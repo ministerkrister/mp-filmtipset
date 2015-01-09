@@ -67,8 +67,6 @@
         <label>208</label>
         <onup>3</onup>
         <ondown>3</ondown>
-        <textureFocus>myvideos_play_focus.png</textureFocus>
-        <textureNoFocus>myvideos_play_nofocus.png</textureNoFocus>
       </control>
 
       <control Style="detailsButton">
@@ -125,8 +123,6 @@
       <animation effect="fade"
                  time="0">WindowClose</animation>
     </control>
-
-
 
   </controls>
 </window>
