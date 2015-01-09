@@ -209,6 +209,7 @@ namespace Filmtipset.GUI
                     };
                     List<MovieImages> movieImages = new List<MovieImages>() { currentMovie.Images };
                     ImageDownloader.Instance.GetImages(movieImages);
+                    GUICommon.SetMovieProperties(currentMovie);
                 }
             }, "Getting movie", true); //TODO
         }
