@@ -253,7 +253,7 @@
       <animation effect="fade" time="250">WindowClose</animation>
     </control>
 
-    
+
     <control Style="InfoLabel">
       <description>Channel label</description>
       <id>0</id>

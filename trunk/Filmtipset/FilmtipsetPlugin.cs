@@ -279,25 +279,28 @@ namespace Filmtipset
                     GUIWindowManager.ActivateWindow((int)FilmtipsetGUIWindows.Recommendations);
                     break;
                 case (4):
-                    GUIWindowManager.ActivateWindow((int)FilmtipsetGUIWindows.List, (new FilmtipsetLoadParam() { Id = FilmtipsetAPIListType.bio.ToString(), Title = Translation.GetByName("OnCinema") }).ToJSON());
+                    GUIWindowManager.ActivateWindow((int)FilmtipsetGUIWindows.List, (new FilmtipsetLoadParam() { ListId = FilmtipsetAPIListType.bio.ToString(), Title = Translation.GetByName("OnCinema"), Action = (int)FilmtipsetAPIAction.list }).ToJSON());
                     break;
                 case (5):
-                    GUIWindowManager.ActivateWindow((int)FilmtipsetGUIWindows.List, (new FilmtipsetLoadParam() { Id = FilmtipsetAPIListType.video.ToString(), Title = Translation.GetByName("OnDvd") }).ToJSON());
+                    GUIWindowManager.ActivateWindow((int)FilmtipsetGUIWindows.List, (new FilmtipsetLoadParam() { ListId = FilmtipsetAPIListType.video.ToString(), Title = Translation.GetByName("OnDvd"), Action = (int)FilmtipsetAPIAction.list }).ToJSON());
                     break;
                 case (6):
-                    GUIWindowManager.ActivateWindow((int)FilmtipsetGUIWindows.List, (new FilmtipsetLoadParam() { Id = FilmtipsetAPIListType.tv.ToString(), Title = Translation.GetByName("OnTv") }).ToJSON());
+                    GUIWindowManager.ActivateWindow((int)FilmtipsetGUIWindows.List, (new FilmtipsetLoadParam() { ListId = FilmtipsetAPIListType.tv.ToString(), Title = Translation.GetByName("OnTv"), Action = (int)FilmtipsetAPIAction.list }).ToJSON());
                     break;
                 case (7):
-                    GUIWindowManager.ActivateWindow((int)FilmtipsetGUIWindows.List, (new FilmtipsetLoadParam() { Id = FilmtipsetAPIListType.owned.ToString(), Title = Translation.GetByName("listowned") }).ToJSON());
+                    GUIWindowManager.ActivateWindow((int)FilmtipsetGUIWindows.List, (new FilmtipsetLoadParam() { ListId = FilmtipsetAPIListType.owned.ToString(), Title = Translation.GetByName("listowned"), Action = (int)FilmtipsetAPIAction.list }).ToJSON());
                     break;
                 case (8):
-                    GUIWindowManager.ActivateWindow((int)FilmtipsetGUIWindows.List, (new FilmtipsetLoadParam() { Id = FilmtipsetAPIListType.wantedlist.ToString(), Title = Translation.GetByName("listwantedlist") }).ToJSON());
+                    GUIWindowManager.ActivateWindow((int)FilmtipsetGUIWindows.List, (new FilmtipsetLoadParam() { ListId = FilmtipsetAPIListType.wantedlist.ToString(), Title = Translation.GetByName("listwantedlist"), Action = (int)FilmtipsetAPIAction.list }).ToJSON());
                     break;
                 case (9):
-                    GUIWindowManager.ActivateWindow((int)FilmtipsetGUIWindows.List, (new FilmtipsetLoadParam() { Id = FilmtipsetAPIListType.seen.ToString(), Title = Translation.GetByName("listseen") }).ToJSON());
+                    GUIWindowManager.ActivateWindow((int)FilmtipsetGUIWindows.List, (new FilmtipsetLoadParam() { ListId = FilmtipsetAPIListType.seen.ToString(), Title = Translation.GetByName("listseen"), Action = (int)FilmtipsetAPIAction.list }).ToJSON());
                     break;
                 case (10):
-                    GUIWindowManager.ActivateWindow((int)FilmtipsetGUIWindows.List, (new FilmtipsetLoadParam() { Id = FilmtipsetAPIListType.grades.ToString(), Title = Translation.GetByName("listgrades") }).ToJSON());
+                    GUIWindowManager.ActivateWindow((int)FilmtipsetGUIWindows.List, (new FilmtipsetLoadParam() { ListId = FilmtipsetAPIListType.grades.ToString(), Title = Translation.GetByName("listgrades"), Action = (int)FilmtipsetAPIAction.list }).ToJSON());
+                    break;
+                case (11):
+                    GUIWindowManager.ActivateWindow((int)FilmtipsetGUIWindows.List, (new FilmtipsetLoadParam() {Title = Translation.GetByName("Recomendationer 2"), Action = (int)FilmtipsetAPIAction.recommendations }).ToJSON());
                     break;
                 default:
                     break;
