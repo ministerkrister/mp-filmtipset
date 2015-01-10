@@ -166,7 +166,7 @@
           <label>-</label>
           <onright>50</onright>
           <ondown>3</ondown>
-          <onup>4</onup>
+          <onup>5</onup>
         </control>
 
         <control>
@@ -184,6 +184,43 @@
           <ondown>4</ondown>
           <onup>2</onup>
         </control>
+
+        <control>
+          <description>Genres</description>
+          <type>button</type>
+          <id>4</id>
+          <label>-</label>
+          <onleft>50</onleft>
+          <onright>50</onright>
+          <textureFocus>hiddenmenu_item_selected.png</textureFocus>
+          <textureNoFocus>-</textureNoFocus>
+          <width>499</width>
+          <height>69</height>
+          <textXOff>62</textXOff>
+          <textYOff>16</textYOff>
+          <ondown>5</ondown>
+          <onup>3</onup>
+          <visible>!string.equals(#Filmtipset.Show.Genre,)</visible>
+        </control>
+
+        <control>
+          <description>Grade</description>
+          <type>button</type>
+          <id>5</id>
+          <label>Betyg 5 #Filmtipset.Show.Grade #Filmtipset.Show.Genre</label>
+          <onleft>50</onleft>
+          <onright>50</onright>
+          <textureFocus>hiddenmenu_item_selected.png</textureFocus>
+          <textureNoFocus>-</textureNoFocus>
+          <width>499</width>
+          <height>69</height>
+          <textXOff>62</textXOff>
+          <textYOff>16</textYOff>
+          <ondown>2</ondown>
+          <onup>4</onup>
+          <visible>!string.equals(#Filmtipset.Show.Grade,)</visible>
+        </control>
+
       </control>
     </control>
     <import>Filmtipset.Common.Facade.xml</import>

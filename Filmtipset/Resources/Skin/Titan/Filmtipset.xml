@@ -115,7 +115,16 @@
         <id>10</id>
         <label>#Filmtipset.Translation.listgrades.Label</label>
         <onup>9</onup>
-        <ondown>2</ondown>
+        <ondown>11</ondown>
+      </control>
+      <control Style="SettingsButton">
+        <description>Rekomendationer</description>
+        <type>button</type>
+        <id>11</id>
+        <label>#Filmtipset.Translation.RecommendedMovies.Label två</label>
+        <onup>10</onup>
+        <ondown>11</ondown>
+        <visible>true</visible>
       </control>
     </control>
 

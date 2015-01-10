@@ -21,6 +21,15 @@ namespace Filmtipset.GUI
         [SkinControl(3)]
         protected GUIButtonControl layoutButton = null;
 
+        [SkinControl(4)]
+        protected GUIButtonControl genreButton = null;
+
+        [SkinControl(5)]
+        protected GUIButtonControl gradeButton = null;
+
+        [SkinControl(99)]
+        protected GUIButtonControl reloadButton = null;
+
         [SkinControl(50)]
         protected GUIFacadeControl Facade = null;
 
@@ -52,11 +61,14 @@ namespace Filmtipset.GUI
         protected ImageSwapper backdrop;
         protected DateTime LastRequest = new DateTime();
 
-        protected Account CurrentUser = Helpers.GetDefaultUser();
+       protected Account CurrentUser = Helpers.GetDefaultUser();
         protected Layout CurrentLayout { get; set; }
         protected string currentListId = string.Empty;
+        protected int currentGrade = 5;
+        FilmtipsetAPIAction CurrentAction { get; set; }
+        FilmtipsetAPIGenre CurrentGenre { get; set; }
 
-        protected readonly string[] doSort = { FilmtipsetAPIListType.bio.ToString(), FilmtipsetAPIListType.video.ToString() };
+
         protected MoviesData Movies
         {
             get
@@ -64,10 +76,20 @@ namespace Filmtipset.GUI
                 if (_Movies == null || LastRequest < DateTime.UtcNow.Subtract(new TimeSpan(0, FilmtipsetSettings.WebRequestCacheMinutes, 0)))
                 {
                     ImageDownloader.Instance.StopDownloads = true;
-                    _Movies = FilmtipsetAPI.Instance.GetList(currentListId, currentListId == FilmtipsetAPIListType.grades.ToString() ? 5 : 0);
-                    if (doSort.Contains(currentListId))
+
+                    switch (CurrentAction)
                     {
-                        _Movies.Movies.Sort((x, y) => string.Compare(y.Movie.Grade.Value, x.Movie.Grade.Value));
+                        case FilmtipsetAPIAction.list:
+                            string[] doSort = { FilmtipsetAPIListType.bio.ToString(), FilmtipsetAPIListType.video.ToString() };
+                            _Movies = FilmtipsetAPI.Instance.GetList(currentListId, currentListId == FilmtipsetAPIListType.grades.ToString() ? 5 : 0);
+                            if (doSort.Contains(currentListId))
+                            {
+                                _Movies.Movies.Sort((x, y) => string.Compare(y.Movie.Grade.Value, x.Movie.Grade.Value));
+                            }
+                            break;
+                        case FilmtipsetAPIAction.recommendations:
+                            _Movies = FilmtipsetAPI.Instance.GetRecommendedMovies(CurrentGenre);
+                            break;
                     }
                     LastRequest = DateTime.UtcNow;
                     PreviousSelectedIndex = 0;
@@ -97,27 +119,39 @@ namespace Filmtipset.GUI
         protected override void OnPageLoad()
         {
             base.OnPageLoad();
+            ImageDownloader.Instance.StopDownloads = true;
 
             if (_loadParameter != null)
             {
                 FilmtipsetLoadParam loadParams = _loadParameter.FromJSON<FilmtipsetLoadParam>();
-                if (loadParams != null && !string.IsNullOrEmpty(loadParams.Id) && !string.IsNullOrEmpty(loadParams.Title))
+                if (loadParams != null)
                 {
-                    string listId = loadParams.Id;
-                    if (currentListId != listId)
+
+                    int a = loadParams.Action;
+                    if (Enum.IsDefined(typeof(FilmtipsetAPIAction), a))
                     {
-                        _Movies = null;
+                        if (CurrentAction != (FilmtipsetAPIAction)a)
+                            Movies = null;
+
+                        CurrentAction = (FilmtipsetAPIAction)a;
+                        switch (CurrentAction)
+                        {
+                            case FilmtipsetAPIAction.list:
+                                string listId = loadParams.ListId;
+                                if (currentListId != listId)
+                                {
+                                    Movies = null;
+                                }
+                                currentListId = listId;
+                                break;
+                            case FilmtipsetAPIAction.recommendations:
+                                break;
+                        }
+
+                        GUICommon.SetProperty("#header.label", loadParams.Title);
                     }
-                    currentListId = listId;
-                    GUICommon.SetProperty("#header.label", loadParams.Title);
                 }
             }
-            if (string.IsNullOrEmpty(currentListId))
-            {
-                currentListId = FilmtipsetAPIListType.bio.ToString();
-                GUICommon.SetProperty("#header.label", Translation.GetByName("Cinema"));
-            }
-
             if (CurrentUser.Id != FilmtipsetSettings.CurrentAccount.Id)
             {
                 if (FilmtipsetSettings.Accounts.Any(a => a.Id == FilmtipsetSettings.CurrentAccount.Id))
@@ -147,8 +181,9 @@ namespace Filmtipset.GUI
             {
                 int i = FilmtipsetSettings.Accounts.FindIndex(a => a.Id == CurrentUser.Id);
                 FilmtipsetSettings.Accounts[i].Layout = (int)CurrentLayout;
+                FilmtipsetSettings.Accounts[i].RecommendationGenre = (int)CurrentGenre;
+                FilmtipsetSettings.Accounts[i].grade = currentGrade;
             }
-
             base.OnPageDestroy(new_windowId);
         }
 
@@ -164,15 +199,25 @@ namespace Filmtipset.GUI
                     if (newCurrentUser.Id != CurrentUser.Id)
                     {
                         CurrentUser = newCurrentUser;
+                        //keep genre and grade todo check action
+                        CurrentUser.RecommendationGenre = (int)CurrentGenre;
+                        CurrentUser.grade = currentGrade;
                         CurrentLayout = (Layout)CurrentUser.Layout;
-                        GUIControl.SetControlLabel(GUIWindowManager.ActiveWindow, (int)FilmtipsetGUIControls.Layout, GUICommon.GetLayoutTranslation(CurrentLayout));
+                        //save current user
                         FilmtipsetSettings.CurrentAccount = CurrentUser;
+                        //init props...
+                        InitProperties();
                         ReloadMovies();
                     }
                     break;
                 case (3):
                     CurrentLayout = GUICommon.ShowLayoutMenu(CurrentLayout, PreviousSelectedIndex);
                     CurrentUser.Layout = (int)CurrentLayout;
+                    break;
+                case (4): //Genre
+                    ShowGenreMenu();
+                    break;
+                case (5): //Grade
                     break;
                 case (50):
                     if (actionType == MediaPortal.GUI.Library.Action.ActionType.ACTION_SELECT_ITEM)
@@ -203,6 +248,43 @@ namespace Filmtipset.GUI
         #endregion
 
         #region protected methods
+
+        protected void ShowGenreMenu()
+        {
+            IDialogbox dlg = (IDialogbox)GUIWindowManager.GetWindow((int)GUIWindow.Window.WINDOW_DIALOG_MENU);
+            dlg.Reset();
+            dlg.SetHeading(GenreItemName(CurrentGenre));
+
+            Dictionary<string, FilmtipsetAPIGenre> items = new Dictionary<string, FilmtipsetAPIGenre>();
+            foreach (string genre in Enum.GetNames(typeof(FilmtipsetAPIGenre)))
+            {
+                FilmtipsetAPIGenre g = (FilmtipsetAPIGenre)Enum.Parse(typeof(FilmtipsetAPIGenre), genre);
+                string menuItem = GenreItemName(g);
+                GUIListItem pItem = new GUIListItem(menuItem);
+                items.Add(menuItem, g);
+                if (g == CurrentGenre) pItem.Selected = true;
+                dlg.Add(pItem);
+            }
+
+            dlg.DoModal(GUIWindowManager.ActiveWindow);
+
+            if (dlg.SelectedLabel >= 0)
+            {
+                FilmtipsetAPIGenre g = items[dlg.SelectedLabelText];
+                if (g != CurrentGenre)
+                {
+                    CurrentGenre = g;
+                    GUIControl.SetControlLabel(GetID, genreButton.GetID, dlg.SelectedLabelText);
+                    CurrentUser.RecommendationGenre = (int)CurrentGenre;
+                    ReloadMovies();
+                }
+            }
+
+        }
+        private string GenreItemName(FilmtipsetAPIGenre Genre)
+        {
+            return string.Format(GUI.Translation.GenreItem, GUI.Translation.GetByName("Genre" + Genre.ToString()));
+        }
 
         protected void ShowContextMenu(GUIFilmtipsetListItem selectedItem)
         {
@@ -304,8 +386,8 @@ namespace Filmtipset.GUI
             backdrop.GUIImageTwo = FanartBackground2;
             backdrop.LoadingImage = loadingImage;
 
-            //First load the user
-            CurrentUser = FilmtipsetSettings.Accounts.FirstOrDefault(ac => ac.Id == FilmtipsetSettings.CurrentAccount.Id) ?? Helpers.GetDefaultUser();
+            //First load the user todo havent i done this allready...
+            //CurrentUser = FilmtipsetSettings.Accounts.FirstOrDefault(ac => ac.Id == FilmtipsetSettings.CurrentAccount.Id) ?? Helpers.GetDefaultUser();
             GUIControl.SetControlLabel(GetID, memberButton.GetID, GUICommon.GetAccountTranslation(CurrentUser));
             GUICommon.SetProperty("#Filmtipset.User.Name", CurrentUser.Name);
 
@@ -314,11 +396,22 @@ namespace Filmtipset.GUI
             CurrentLayout = (Layout)CurrentUser.Layout;
             // update button label
             GUIControl.SetControlLabel(GetID, layoutButton.GetID, GUICommon.GetLayoutTranslation(CurrentLayout));
+
+            //load genre
+            CurrentGenre = (FilmtipsetAPIGenre)CurrentUser.RecommendationGenre;
+            GUIControl.SetControlLabel(GetID, genreButton.GetID, GenreItemName(CurrentGenre));
+            GUICommon.SetProperty("#Filmtipset.CurrentGenre.Label", Translation.GetByName("Genre" + CurrentGenre.ToString()));
+
+            currentGrade = CurrentUser.grade;
+
+
         }
 
         protected void ClearProperties()
         {
-            GUICommon.SetProperty("#Filmtipset.User.Name", " ");
+            GUIUtils.SetProperty("#Filmtipset.User.Name", "");
+            GUIUtils.SetProperty("#Filmtipset.Show.Grade", "");
+            GUIUtils.SetProperty("#Filmtipset.Show.Genre", "");
             GUICommon.ClearMovieProperties();
         }
 
@@ -381,7 +474,11 @@ namespace Filmtipset.GUI
 
         protected void LoadMovies()
         {
+            //todo move? But they work here...
             GUICommon.SetProperty("#Filmtipset.User.Name", CurrentUser.Name);
+            GUIUtils.SetProperty("#Filmtipset.Show.Grade", (CurrentAction == FilmtipsetAPIAction.list && currentListId == FilmtipsetAPIListType.grades.ToString()) ? "show" : "");
+            GUIUtils.SetProperty("#Filmtipset.Show.Genre", (CurrentAction == FilmtipsetAPIAction.recommendations) ? "show" : "");
+
             Gui2UtilConnector.Instance.ExecuteInBackgroundAndCallback(() =>
             {
                 return Movies;
@@ -403,7 +500,7 @@ namespace Filmtipset.GUI
                     //SetListProperties();
                     SendMoviesToFacade(movies);
                 }
-            }, "Getting rec. movies", true); 
+            }, "Getting movies", true); //todo
         }
 
         protected void ReloadMovies()
