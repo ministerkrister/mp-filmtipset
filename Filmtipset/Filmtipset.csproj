@@ -111,13 +111,12 @@
     <Compile Include="Models\FilmtipsetRequest.cs" />
     <Compile Include="Models\FilmtipsetResponse.cs" />
     <Compile Include="Models\FilmtipsetUser.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="FilmtipsetTranslation.cs" />
     <Compile Include="TvWishList\TvWishes.cs" />
     <Compile Include="Util\Utils.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Properties\AssemblyInfo.template" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Configuration\Configuration.resx">
@@ -211,8 +210,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>cd "$(ProjectDir)"
-SubWCRev . "Properties\AssemblyInfo.template" "Properties\AssemblyInfo.cs"</PreBuildEvent>
+    <PreBuildEvent>
+    </PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PostBuildEvent>copy /Y $(ProjectDir)$(OutDir)Filmtipset.* "C:\Program Files (x86)\Team MediaPortal\MediaPortal\plugins\Windows\"
